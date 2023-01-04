@@ -1,1 +1,255 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
+void getwithblank( char str [] )
+{
+    gets(str) ;
+
+    int str_lenght ;
+
+    str_lenght = strlen(str) ;
+
+    int u  ;
+
+    for ( u = str_lenght ; u <= 31 ; u++ )
+    {
+        str[u] = ' ' ;
+    }
+
+}
+void getpassword( char str1[])
+{
+    int cirt = 0 ;
+
+    int safety_Password = 0 , length_getpassword ;
+
+
+    for ( ; ; )
+    {
+        gets(str1) ;
+
+        length_getpassword = strlen(str1) ;
+
+        for ( cirt = 0 ; cirt < length_getpassword ; cirt++ )
+        {
+                if (( str1[cirt] >= 33 && str1[cirt] <= 47 ) || (str1[cirt] >= 58 && str1[cirt] <= 95 ) )
+                {
+                safety_Password ++ ;
+                }
+        }
+
+        if ( (length_getpassword < 8 )|| ( safety_Password < 3) )
+        {
+            printf("*Your password doesn't have enough characters , Try Again* ") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+        }
+        else if ( (length_getpassword > 8) && (safety_Password < 3) )
+        {
+            printf("*Use more symbols and alphabets for security*") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+        }
+        else if ( (length_getpassword > 8 ) && ( safety_Password > 3 ))
+        {
+            printf("\t \t \t Prefect") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+            break ;
+
+        }
+    }
+
+    for ( cirt = length_getpassword  ; cirt <= 31 ; cirt++ )
+    {
+        str1[cirt] = ' ' ;
+    }
+
+}
+void Huffmanbuilder( char str3 [] )
+{
+
+}
+void Huffmangenerator( char str4 [])
+{
+
+}
+int main()
+{
+   system("start sina101.mp3") ;
+
+    page1 :  printf("** Welcome to SAM( Sina's Arsenal management ) ** \t \t \t \t \t \t \t \t  Music Played : Fit girl :) \n ") ;
+
+    printf("1.SignUp !\n ") ;
+
+    printf("2.Login\n ") ;
+
+    printf("3.Exit\n ") ;
+
+    printf(">> Please enter your choice: ") ;
+
+    int Enterchoice ;
+
+    char BackToFirstPage [32] ;
+
+    scanf("%d" , &Enterchoice) ;
+
+    if ( Enterchoice == 3 )
+    {
+        exit(0) ;
+    }
+    else if ( Enterchoice == 1 )
+    {
+        system("cls") ;
+
+        printf(" SIGN UP \n \n") ;
+
+        printf("Create your SAM Account\n \n") ;
+
+        printf("Back to first page >> ""press 1"": \n") ;
+
+        printf("Continue >> ""press 2"":") ;
+
+    for ( ; ; )
+      {
+        gets(BackToFirstPage) ;
+
+        if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+        {
+            system("cls") ;
+
+            goto page1 ;
+        }
+
+           else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+        {
+               break ;
+        }
+
+        else if ( strlen(BackToFirstPage) != 1 )
+        {
+            printf("\nEnter the correct order : ") ;
+        }
+       }
+
+    struct Members
+    {
+        char Name_newmember[32] ;
+
+        char LastName_newmemeber[32] ;
+
+        char controlname[32] ;
+
+        char id[32] ;
+
+        char phone_Number[32] ;
+
+        char email_Newmemeber[32] ;
+
+        char password_Newmember [32] ;
+
+        char password_Newmemberaccept [32] ;
+    } ;
+
+    struct Members Member ;
+
+    FILE *ListMemberFp ;
+
+    ListMemberFp = fopen("E:\\ListMemberFp.txt", "a+") ;
+
+        printf("First name :");
+
+        int i ;
+
+        getwithblank(Member.Name_newmember) ;
+
+        printf("\n") ;
+
+        printf("Last name :");
+
+        getwithblank(Member.LastName_newmemeber) ;
+
+        printf("\n") ;
+
+        printf("Username :");
+
+        getwithblank(Member.controlname) ;
+
+        printf("\n") ;
+
+        printf("ID :") ;
+
+        getwithblank(Member.id) ;
+
+        printf("\n") ;
+
+        printf("Email *( Please enter the form Username@ABCDE.com )* :") ;
+
+        getwithblank(Member.email_Newmemeber) ;
+
+        printf("\n") ;
+
+        printf("Phone number :") ;
+
+        getwithblank(Member.phone_Number) ;
+
+        printf("\n") ;
+
+        printf("Password ( Use 8 or more characters (max is 32) with mix of letters, numbers & symbols ) :  ") ;
+
+        int  length_Password , safety_Password , p = 0 ;
+
+            for ( ; ; )
+            {
+                getpassword(Member.password_Newmember) ;
+
+                printf("\nConfirm your password") ;
+
+            psw :getwithblank(Member.password_Newmemberaccept) ;
+
+                if ( Member.password_Newmemberaccept[i] == Member.password_Newmember[i])
+                    {
+                        printf("\nYour account has been saved") ;
+
+                        break ;
+
+                    }
+
+                else
+                    {
+                        printf("Wrong Confirm , Try again") ;
+
+                        i = 0 ;
+
+                        goto psw ;
+
+                    }
+                    i++ ;
+
+            }
+
+            fwrite(&Member , sizeof (struct Members ) , 1 , ListMemberFp) ;
+    }
+
+    else if ( Enterchoice ==  2 )
+    {
+
+    }
+
+
+
+
+
+
+}
 
