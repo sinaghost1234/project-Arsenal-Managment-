@@ -1,0 +1,514 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
+struct Members
+    {
+        char Name_newmember[32] ;
+
+        char LastName_newmemeber[32] ;
+
+        char controlname[32] ;
+
+        char id[32] ;
+
+        char phone_Number[32] ;
+
+        char email_Newmemeber[32] ;
+
+        char password_Newmember [32] ;
+
+        char password_Newmemberaccept [32] ;
+
+        char password_WrongCounter[32] ;
+
+        char password_timeoutCounter[32] ;
+
+        char password_clocktimeout[32] ;
+    } ;
+
+    struct Members Member ;
+
+    int i ;
+
+int timeout ( int seconds )
+{
+    printf("You time outed for %d " , seconds) ;
+
+    clock_t endwait;
+
+    endwait = clock () + seconds * CLOCKS_PER_SEC ;
+
+    while (clock() < endwait) {}
+
+    return  1;
+}
+
+void checkpassword ( char str5 [] )
+{
+        int p = 0 ;
+
+        while ( str5[p - 1 ]!= '\r' )
+            {
+                    str5[p] = getch() ;
+
+                if (str5[p - 1 ]!= '\r')
+                {
+                    printf("*") ;
+                }
+
+                p++ ;
+
+            }
+            str5[p-1] = '\0' ;
+}
+
+void getpassword( char str1[])
+{
+    int cirt = 0 ;
+
+    int safety_Password = 0 , length_getpassword ;
+
+    for ( ; ; )
+    {
+        gets(str1) ;
+
+        length_getpassword = strlen(str1) ;
+
+        for ( cirt = 0 ; cirt < length_getpassword ; cirt++ )
+        {
+                if (( str1[cirt] >= 33 && str1[cirt] <= 47 ) || (str1[cirt] >= 58 && str1[cirt] <= 95 ) )
+                {
+                safety_Password ++ ;
+                }
+        }
+
+        if ( (length_getpassword < 8 )|| ( safety_Password < 3) )
+        {
+            printf("*Your password doesn't have enough characters , Try Again* ") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+        }
+        else if ( (length_getpassword > 8) && (safety_Password < 3) )
+        {
+            printf("*Use more symbols and alphabets for security*") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+        }
+        else if ( (length_getpassword > 8 ) && ( safety_Password > 3 ))
+        {
+            printf("\t \t \t Prefect") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+            break ;
+
+        }
+    }
+
+}
+void Huffmanbuilder( char str3 [] )
+{
+
+}
+void Huffmangenerator( char str4 [])
+{
+
+}
+int main()
+{
+   system("start sina101.mp3") ;
+
+    page1 :  printf("** Welcome to SAM( Sina's Arsenal management ) ** \t \t \t \t \t \t \t \t  Music Played : Fit girl :) \n ") ;
+
+    printf("1.SignUp !\n ") ;
+
+    printf("2.Login\n ") ;
+
+    printf("3.Exit\n ") ;
+
+    printf(">> Please enter your choice: ") ;
+
+    int Enterchoice ;
+
+    char BackToFirstPage [32] ;
+
+    scanf("%d" , &Enterchoice) ;
+
+    if ( Enterchoice == 3 )
+    {
+        exit(0) ;
+    }
+    else if ( Enterchoice == 1 )
+    {
+     signup :   system("cls") ;
+
+        printf(" SIGN UP \n \n") ;
+
+        printf("Create your SAM Account\n \n") ;
+
+        printf("Back to first page >> ""press 1"": \n") ;
+
+        printf("Continue >> ""press 2"":") ;
+
+    for ( ; ; )
+      {
+        gets(BackToFirstPage) ;
+
+        if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+        {
+            system("cls") ;
+
+            goto page1 ;
+        }
+
+           else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+        {
+               break ;
+        }
+
+        else if ( strlen(BackToFirstPage) != 1 )
+        {
+            printf("\nEnter the correct order : ") ;
+        }
+       }
+
+    FILE *ListMemberFp ;
+
+    ListMemberFp = fopen("E:\\ListMemberFp.txt", "a+") ;
+
+        printf("First name :");
+
+        gets(Member.Name_newmember) ;
+
+        printf("\n") ;
+
+        printf("Last name :");
+
+        gets(Member.LastName_newmemeber) ;
+
+        printf("\n") ;
+
+        printf("Username :");
+
+        gets(Member.controlname) ;
+
+        printf("\n") ;
+
+        printf("ID :") ;
+
+        gets(Member.id) ;
+
+        printf("\n") ;
+
+        printf("Email *( Please enter the form Username@ABCDE.com )* :") ;
+
+        gets(Member.email_Newmemeber) ;
+
+        printf("\n") ;
+
+        printf("Phone number :") ;
+
+        gets(Member.phone_Number) ;
+
+        printf("\n") ;
+
+        printf("Password ( Use 8 or more characters (max is 32) with mix of letters, numbers & symbols ) :  ") ;
+
+        int  length_Password , safety_Password , p = 0 ;
+
+            for ( ; ; )
+            {
+                getpassword(Member.password_Newmember) ;
+
+                printf("\nConfirm your password") ;
+
+            psw :gets(Member.password_Newmemberaccept) ;
+
+                if ( Member.password_Newmemberaccept[i] == Member.password_Newmember[i])
+                    {
+                        printf("\nYour account has been saved") ;
+
+                        Sleep(5000) ;
+
+                        break ;
+                    }
+                else
+                    {
+                        printf("Wrong Confirm , Try again") ;
+
+                        i = 0 ;
+
+                        goto psw ;
+                    }
+                    i++ ;
+            }
+
+            fwrite(&Member , sizeof (struct Members ) , 1 , ListMemberFp) ;
+
+            fclose(ListMemberFp) ;
+
+            system("cls") ;
+
+            goto page1 ;
+
+    }
+
+    else if ( Enterchoice ==  2 )
+    {
+        char Username[32] , password[32]  ;
+
+        int  wrongloginintiger  ;
+
+        long long int timeoutloginintiger ;
+
+    login:    system("cls") ;
+
+        printf("Login \n\n") ;
+
+        printf("Welcome to SAM\n\n") ;
+
+        printf("Don't have account ?  >> ""press 1"": \n") ;
+
+        printf("Continue >> ""press 2"":") ;
+
+        for ( ; ; )
+        {
+            gets(BackToFirstPage) ;
+
+            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+            {
+                system("cls") ;
+
+                goto signup ;
+            }
+
+            else if ((BackToFirstPage[0] == '2')&& ( strlen(BackToFirstPage) == 1 ) )
+            {
+               break ;
+            }
+
+            else if ( strlen(BackToFirstPage) != 1 )
+            {
+                printf("\nEnter the correct order : ") ;
+            }
+       }
+
+        printf("Enter your Username : ") ;
+
+        gets(Username);
+
+        FILE* UserpassCheck ;
+
+        UserpassCheck = fopen("E://ListMemberFp.txt" ,"r") ;
+
+        while ( !feof(UserpassCheck)  )
+        {
+            fread(&Member , sizeof(struct Members) , 1 , UserpassCheck) ;
+
+            if ( strcmp(Member.controlname,Username) == 0 )
+            {
+                goto pwlogin ;
+            }
+        }
+
+        if ( feof(UserpassCheck) != 0 )
+        {
+            printf("There is not User name with your id in the files\n \nWould you want to make a new account or try again ?\n >> Make a new account *press 1* \n>> Try again *press 2* ") ;
+
+                for ( ; ; )
+                {
+                    gets(BackToFirstPage) ;
+
+                    if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+                        {
+                            system("cls") ;
+
+                            goto signup ;
+                        }
+
+                    else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+                        {
+                            system("cls") ;
+
+                            goto login ;
+                        }
+
+                    else if ( strlen(BackToFirstPage) != 1 )
+                        {
+                            printf("\nEnter the correct order : ") ;
+                        }
+                }
+
+
+
+        }
+
+     pwlogin :   printf("Enter your Password : ") ;
+
+        checkpassword(password) ;
+
+        rewind(UserpassCheck) ;
+
+        while ( !feof(UserpassCheck) )
+        {
+            fread(&Member , sizeof ( struct Members ), 1 , UserpassCheck ) ;
+
+            if ( strcmp(Member.password_Newmember , password ) == 0 )
+            {
+                    wrongloginintiger = atoi(Member.password_WrongCounter)  ;
+
+                    timeoutloginintiger = atoi(Member.password_timeoutCounter) ;
+
+                if ( timeoutloginintiger > 0 )
+                {
+                    printf("Your account has been time outed for %d ,Press '1' for waiting to ended the timeout or Press '2' using another account: \n" , timeoutloginintiger) ;
+
+                    printf(">> Enter the correct order : ") ;
+
+                    for ( ; ; )
+                        {
+                            gets(BackToFirstPage) ;
+
+                            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+                                {
+                                    if ( timeout(timeoutloginintiger) == 1)
+                                    {
+                                        Member.password_timeoutCounter[0] = '0' ;
+
+                                        Member.password_WrongCounter[0] = '0' ;
+
+                                        // goto Managment ;
+                                    }
+                                }
+
+                                    else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+                                    {
+                                        goto login ;
+                                    }
+
+                                    else if ( strlen(BackToFirstPage) != 1 )
+                                    {
+                                        printf("\nEnter the correct order : ") ;
+                                    }
+                        }
+
+
+
+                }
+                else if ( timeoutloginintiger == 0 )
+                {
+                     if ( wrongloginintiger < 5)
+                    {
+                        printf("You login ") ;
+
+                        Sleep(3000) ;
+
+                        system("cls") ;
+                    }
+                    else if ( wrongloginintiger >= 5 && wrongloginintiger <= 10 )
+                    {
+                        timeoutloginintiger = wrongloginintiger * 30 ;
+
+                        printf("You entered %d times incorrect password ,Press 1 for enjoying your timeout or Press 2 using another account:\n" , wrongloginintiger) ;
+
+                        printf(">>Enter the correct order : ") ;
+
+                        for ( ; ; )
+                        {
+                            gets(BackToFirstPage) ;
+
+                            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+                                {
+                                    if ( timeout(timeoutloginintiger) == 1)
+                                    {
+                                        Member.password_timeoutCounter[0] = '0' ;
+
+                                        Member.password_WrongCounter[0] = '0' ;
+
+                                        // goto Managment ;
+
+                                    }
+                                }
+
+                                    else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+                                    {
+                                        goto login ;
+                                    }
+
+                                    else if ( strlen(BackToFirstPage) != 1 )
+                                    {
+                                        printf("\nEnter the correct order : ") ;
+                                    }
+                        }
+                    }
+                    else if ( wrongloginintiger > 10 )
+                    {
+                        timeoutloginintiger = wrongloginintiger * 60 ;
+
+                        printf("You entered %d times incorrect password ,Press 1 for enjoying your timeout or Press 2 using another account:\n" , wrongloginintiger) ;
+
+                        printf(">>Enter the correct order : ") ;
+
+                        for ( ; ; )
+                        {
+                            gets(BackToFirstPage) ;
+
+                            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+                                {
+                                    if ( timeout(timeoutloginintiger) == 1)
+                                    {
+                                        Member.password_timeoutCounter[0] = '0' ;
+
+                                        Member.password_WrongCounter[0] = '0' ;
+
+                                        // goto Managment ;
+                                    }
+
+                                    else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+                                    {
+                                        printf("You entered ") ;
+
+                                        Sleep(3000) ;
+
+                                        system("cls") ;
+
+                                        goto login ;
+                                    }
+
+                                    else if ( strlen(BackToFirstPage) != 1 )
+                                    {
+                                        printf("\nEnter the correct order : ") ;
+                                    }
+                                 }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                printf("Wrong password try again !") ;
+
+                Member.password_WrongCounter[0] = Member.password_WrongCounter[0] + 1 ;
+
+                goto pwlogin ;
+
+            }
+        }
+    }
+
+    // Managment :
+
+
+
+
+
+}
