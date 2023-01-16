@@ -1,0 +1,852 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
+#include <string.h>
+struct Members
+    {
+        char Name_newmember[32] ; // problems : 1- huffman biulder and huffman generator , 2- design , 3- username password if he use uncorrect order,
+
+        char LastName_newmemeber[32] ; // name , family don't have nums ... , password safety , deleting in password "backspace" , tavarom  kala , taghiraat dar hamomn lahze dar ghesmate sabte kala ya sabte nam
+
+        char controlname[32] ;
+
+        char id[32] ;
+
+        char phone_Number[32] ;
+
+        char email_Newmemeber[32] ;
+
+        char password_Newmember [32] ;
+
+        char password_WrongCounter[32] ;
+
+        char password_timeoutCounter[32] ;
+
+        char password_clocktimeout[32] ;
+
+        char time_login[32] ;
+
+        char time_logout[32] ;
+
+        char product_transaction[32] ;
+
+    } ;
+
+struct Members Member ;
+
+char BackToFirstPage [32] ;
+
+struct Products
+    {
+        char name_product[50] ;
+
+        char Brand_product[50] ;
+
+        char Model_product[50] ;
+
+        char price_product[50] ;
+
+        char preamble_product[50] ;
+
+        char Uniqe_IDproduct[50] ;
+
+        char mounts_product[50] ;
+    };
+
+    struct Products product ;
+
+    int i ;
+
+struct Reports
+{
+    char Report_IDUniqueproduct[30] ;
+
+    char Report_firstname [30] ;
+
+    char Report_Lastname [30] ;
+
+    char Report_Username [30] ;
+
+    char Report_Dateentering[30] ;
+
+    char Report_Dateouting[30] ;
+};
+
+struct Reports report ;
+
+int timeout ( int seconds )
+{
+    printf("You time outed for %d " , seconds) ;
+
+    clock_t endwait;
+
+    endwait = clock () + seconds * CLOCKS_PER_SEC ;
+
+    while (clock() < endwait) {}
+
+    return  1;
+}
+void checkpassword ( char str5 [] )
+{
+        int p = 0 ;
+
+        while ( str5[p - 1 ]!= '\r' )
+            {
+                    str5[p] = getch() ;
+
+                if (str5[p - 1 ]!= '\r')
+                {
+                    printf("*") ;
+                }
+
+                p++ ;
+
+            }
+            str5[p-1] = '\0' ;
+}
+
+void getpassword( char str1[])
+{
+    int cirt = 0 ;
+
+    int safety_Password = 0 , length_getpassword ;
+
+   getstr1: for ( ; ; )
+    {
+       gets(str1) ;
+
+        length_getpassword = strlen(str1) ;
+
+        for ( cirt = 0 ; cirt < length_getpassword ; cirt++ )
+        {
+                if (( str1[cirt] >= 33 && str1[cirt] <= 47 ) || (str1[cirt] >= 58 && str1[cirt] <= 95 ) )
+                {
+                safety_Password = safety_Password + 1 ;
+                }
+        }
+
+        if ( length_getpassword < 8 )
+        {
+            printf("*Your password doesn't have enough characters , Try Again* ") ;
+
+            Sleep(3000) ;
+
+            printf("\33[2K\r") ;
+
+            printf("Enter your password again") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+            goto getstr1 ;
+
+        }
+        else if ( (length_getpassword > 8) && (safety_Password < 2) )
+        {
+            printf("*Use more symbols and alphabets for security*") ;
+
+            Sleep(3000) ;
+
+            printf("\33[2K\r") ;
+
+            printf("Enter your password again") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+            goto getstr1 ;
+         }
+        else if ( (length_getpassword > 8 ) && ( safety_Password > 2  ))
+        {
+            printf("\t \t \t Prefect") ;
+
+            Sleep(2000) ;
+
+            printf("\33[2K\r") ;
+
+            break ;
+
+        }
+    }
+
+}
+void signup (void)
+{
+        signup :   system("cls") ;
+
+        printf(" SIGN UP \n \n") ;
+
+        printf("Create your SAM Account\n \n") ;
+
+        printf("Back to first page >> ""press 1"": \n") ;
+
+        printf("Continue >> ""press 2"":") ;
+
+    for ( ; ; )
+      {
+            gets(BackToFirstPage) ;
+
+            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+            {
+                system("cls") ;
+
+                main() ;
+            }
+
+            else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+            {
+                break ;
+            }
+
+            else if ( strlen(BackToFirstPage) != 1 )
+            {
+                printf("\nEnter the correct order : ") ;
+            }
+       }
+        FILE *ListMemberFp ;
+
+        ListMemberFp = fopen("E:\\ListMemberFp.txt", "a+") ;
+
+        printf("First name :");
+
+        gets(Member.Name_newmember) ;
+
+        printf("\n") ;
+
+        printf("Last name :");
+
+        gets(Member.LastName_newmemeber) ;
+
+        printf("\n") ;
+
+        printf("ID  :") ;
+
+        gets(Member.id) ;
+
+        printf("\n") ;
+
+        printf("Email *( Please enter the form Username@ABCDE.com )* :") ;
+
+        gets(Member.email_Newmemeber) ;
+
+        printf("\n") ;
+
+        printf("Phone number :") ;
+
+        gets(Member.phone_Number) ;
+
+        printf("\n") ;
+
+        printf("Username :");
+
+        gets(Member.controlname) ;
+
+        printf("\n") ;
+
+        printf("Password ( Use 8 or more characters (max is 32) with mix of letters, numbers & symbols ) :  ") ;
+
+        int  length_Password , safety_Password , password_checkingCh = 0 , p = 0 ;
+
+        getpassword(Member.password_Newmember) ;
+
+        length_Password = strlen(Member.password_Newmember) ;
+
+        char confirm_password[32] ;
+
+        for ( ; ; )
+        {
+            printf("\nConfirm your password") ;
+
+            gets(confirm_password) ;
+
+            if ( strcmp(Member.password_Newmember , confirm_password) == 0 )
+            {
+                printf("Your account has been saved ") ;
+
+                Sleep(2000) ;
+
+                break ;
+
+            }
+            else
+            {
+                printf("The password and your confirming doesn't similar\n") ;
+
+                printf("Confirm again\n") ;
+            }
+        }
+
+        fwrite(&Member , sizeof (struct Members ) , 1 , ListMemberFp) ;
+
+        fclose(ListMemberFp) ;
+
+        system("cls") ;
+
+        main() ;
+}
+void login (void)
+{
+        char Username[32] , password[32]  ;
+
+        int  wrongloginintiger  ;
+
+        long long int timeoutloginintiger ;
+
+        system("cls") ;
+
+        printf("Login \n\n") ;
+
+        printf("Welcome to SAM\n\n") ;
+
+        printf("Don't have account ?  >> ""press 1"": \n") ;
+
+        printf("Continue >> ""press 2"":") ;
+
+        for ( ; ; )
+        {
+            gets(BackToFirstPage) ;
+
+            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+            {
+                system("cls") ;
+
+                signup() ;
+            }
+
+            else if ((BackToFirstPage[0] == '2')&& ( strlen(BackToFirstPage) == 1 ) )
+            {
+               break ;
+            }
+
+            else if ( strlen(BackToFirstPage) != 1 )
+            {
+                printf("\nEnter the correct order : ") ;
+            }
+       }
+
+        printf("Enter your Username : ") ;
+
+        gets(Username);
+
+        FILE* UserpassCheck ;
+
+        UserpassCheck = fopen("E://ListMemberFp.txt" ,"r") ;
+
+        while ( !feof(UserpassCheck)  )
+        {
+            fread(&Member , sizeof(struct Members) , 1 , UserpassCheck) ;
+
+            if ( strcmp(Member.controlname,Username) == 0 )
+            {
+                break ;
+            }
+        }
+
+        if ( feof(UserpassCheck) != 0 )
+        {
+            printf("There is not User name with your entering in the files\n\n>> Make a new account *press 1* \n>> Try again *press 2* ") ;
+
+                for ( ; ; )
+                {
+                    gets(BackToFirstPage) ;
+
+                    if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+                        {
+                            system("cls") ;
+
+                            signup() ;
+                        }
+
+                    else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+                        {
+                            system("cls") ;
+
+                            login() ;
+                        }
+
+                    else if ( strlen(BackToFirstPage) != 1 )
+                        {
+                            printf("\nEnter the correct order : ") ;
+                        }
+                }
+        }
+
+        printf("Enter your Password : ") ;
+
+        checkpassword(password) ;  // timeout ro fix kn .
+
+        if ( strcmp(password,Member.password_Newmember) == 0 )
+        {
+            printf("\nYou login ") ;
+
+            Sleep(3000) ;
+
+            system("cls") ;
+
+            Management() ;
+        }
+        else
+        {
+            printf("password is wrong") ;
+
+            login() ;
+        }
+}
+void Management(void)
+{
+    system("cls") ;
+
+    printf("Welcome to Arsenal management :\n\n") ;
+
+    printf("1.Registration of goods entering the Arsenal\n\n") ;
+
+    printf("2.Registration of goods outing the Arsenal\n\n") ;
+
+    printf("3.Report sections\n\n") ;
+
+    printf("4.User account settings\n\n") ;
+
+    printf("5.Logout\n\n") ;
+
+    printf("6.Close the program\n\n") ;
+
+    printf("Enter your order>>>") ;
+
+    int member_enterchoice ;
+
+    scanf("%d" , &member_enterchoice) ;
+
+    if (member_enterchoice == 1)
+    {
+        system("cls") ;
+
+        printf("Arsenal Management\n\n") ;
+
+        printf("Registration of goods entering the Arsenal\n\n\n\n") ;
+
+        printf("Search your product to entering like this \n\n(NAME OF PRODUCT & NAME OF PRODUCT_MODEL & PRODUCT_SERIAL NUMBER)\n\nfor example:\n\nName : television\n\Brand : sony\n\n Model: xz1000\n\nYou need to search this: television_sony_xz1000") ;
+
+        printf("\n>>") ;
+
+        FILE *enterinproduct ;
+
+        enterinproduct = fopen("E:\\products.txt" , "a+") ;
+
+        rewind(enterinproduct) ;
+
+        char serching_enteringProduct [30] ;
+
+        char numberof_productentering [30] ;
+
+        char numberof_producthave [30] ;
+
+        int numberof_producthaveIntiger , numberof_productenteringIntiger ;
+
+        scanf("%s" , serching_enteringProduct) ;
+
+        while ( !feof(enterinproduct))
+        {
+            fread(&product , sizeof( struct Products ) , 1 , enterinproduct) ;
+
+            if ( strcmp(serching_enteringProduct , product.Uniqe_IDproduct) == 0 )
+            {
+                printf("\nYour product was registered\n") ;
+
+                printf("How many of this product do you want to add to arsenal? \n") ;
+
+                printf(">>>") ;
+
+                scanf("%s" , numberof_productentering) ;
+
+                numberof_producthaveIntiger = atoi(product.mounts_product) ;
+
+                numberof_productenteringIntiger = atoi(numberof_productentering) ;
+
+                numberof_producthaveIntiger = numberof_producthaveIntiger + numberof_productentering ;
+
+                itoa(numberof_producthaveIntiger ,product.mounts_product, 10 ) ;
+
+                fprintf(enterinproduct ,"%s" ,product.mounts_product) ;
+
+                fclose(enterinproduct) ;
+
+                printf("\nThe mount of product has been updated\n") ;
+
+                Sleep(5000) ;
+
+                Management() ;
+            }
+            else
+            {
+                printf("\nThis product was not registered in the data base") ;
+
+                Sleep(3000) ;
+
+                fclose(enterinproduct) ;
+
+                Management() ;
+            }
+        }
+    }
+    else if ( member_enterchoice == 2)
+    {
+
+    }
+    else if ( member_enterchoice == 3)
+    {
+
+    }
+    else if ( member_enterchoice == 4)
+    {
+
+    }
+    else if ( member_enterchoice == 5)
+    {
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Log outing ... ") ;
+
+        Sleep(2000) ;
+
+        system("cls") ;
+
+        main() ;
+
+    }
+    else if ( member_enterchoice == 6)
+    {
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Thanks for using our application") ;
+
+        Sleep(2000) ;
+
+        system("cls") ;
+
+        exit(0) ;
+    }
+
+}
+void Admin(void)
+{
+    system("cls") ;
+
+    printf("Welcome to SAM , sir \n") ;
+
+    system("cls") ;
+
+    printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+    printf("*Welcome sir*\n\n") ;
+
+    printf("Enter the Username:") ;
+
+    char admin_username[6] = "admin" ;
+
+    char admin_UNcheck[32] ;
+
+    scanf("%s" , admin_UNcheck) ;
+
+    char admin_password[9] = "00000000" ;
+
+    char admin_PWcheck[32] ;
+
+    int admin_pwCh = 0 ;
+
+    printf("Enter the password :") ;
+
+    checkpassword(admin_PWcheck) ;
+
+    for ( ; ; )
+        {
+            if ( ( strcmp(admin_username , admin_UNcheck ) == 0 ) && ( strcmp(admin_password , admin_PWcheck) == 0 ) )
+            {
+                printf("\nYou entered , Sir\n") ;
+
+                Sleep(3000) ;
+
+                break ;
+            }
+
+            else if(( strcmp(admin_username , admin_UNcheck ) != 0 ) || ( strcmp(admin_password , admin_PWcheck) != 0 ))
+            {
+                    printf("\nUsername or Password does not match\n") ;
+
+                    Sleep(3000) ;
+
+                    Admin();
+
+            }
+        }
+
+    AdminMenu() ;
+
+}
+void AdminMenu(void)
+{
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Welcome sir\n") ;
+
+        printf("Enter your order>>>\n\n") ;
+
+        printf("1.New product registration\n\n") ;
+
+        printf("2.Report sections\n\n") ;
+
+        printf("3.Logout\n\n") ;
+
+        printf("4.Close the program\n\n") ;
+
+        printf(">>>") ;
+
+        int Admin_Enterchoice ;
+
+        scanf("%d" , &Admin_Enterchoice) ;
+
+        if ( Admin_Enterchoice == 1)
+        {
+            system("cls") ;
+
+            FILE *products1 ;
+
+            products1 = fopen("E:\\products.txt" , "r") ;
+
+            int lenght_Uniqeidproduct = 0 ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("New product registration\n\n\n");
+
+            printf("Before the registering,... \n\n*search your new product that may have registered in the data base*\n\n\n\n") ;
+
+            printf("Search your product to entering like this \n\n(NAME OF PRODUCT & NAME OF PRODUCT_BRAND & PRODUCT_MODEL)\n\nfor example:\n\nName : television\n\nmodel : sony\n\nserial number : xz1000\n\nYou need to search this: television_sony_xz1000") ;
+
+            printf("\n>>") ;
+
+            char productentering_idsearch[32] ;
+
+            scanf("%s" , productentering_idsearch) ;
+
+            strlwr(productentering_idsearch) ;
+
+            while (!feof(products1))
+            {
+                fread(&product, sizeof ( struct Products) , 1 , products1) ;
+
+                if (strcmp(productentering_idsearch , product.Uniqe_IDproduct)!= 0)
+                {
+                    printf("This product wasn't saved\n") ;
+
+                    Sleep(2000) ;
+
+                    system("cls") ;
+
+                    fclose(products1) ;
+
+                    break ;
+                }
+                else
+                {
+                    printf("This product was saved\n") ;
+
+
+                    Sleep(2000) ;
+
+                    fclose(products1) ;
+
+                    AdminMenu() ;
+                }
+            }
+
+            FILE *products2 ;
+
+            products2 = fopen("E:\\products.txt" , "a+") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("New product registration\n\n\n");
+
+            printf("Product's Name : ") ;
+
+            char randomest_strforfixingBug1[1] ;
+
+            gets(randomest_strforfixingBug1) ;
+
+            product.name_product[0] = '\0' ;
+
+            gets(product.name_product) ;
+
+            strlwr(product.name_product) ;
+
+            printf("\n") ;
+
+            printf("Product's Brand : ") ;
+
+            product.Brand_product[0] = '\0' ;
+
+            gets(product.Brand_product) ;
+
+            strlwr(product.Brand_product) ;
+
+            puts(product.Brand_product) ;
+
+            printf("\n") ;
+
+            product.Brand_product[0] = '\0' ;
+
+            printf("Product's model : ") ;
+
+            gets(product.Model_product) ;
+
+            strlwr(product.Model_product) ;
+
+            printf("\n") ;
+
+            product.price_product[0] = '\0' ;
+
+            printf("Product's price ""$$$DOLLARS$$$"" : ") ;
+
+            gets(product.price_product) ;
+
+            strlwr(product.price_product) ;
+
+            printf("\n") ;
+
+            product.preamble_product[0] = '\0' ;
+
+            printf("Enter the preamble of this product (*MAX 100 LETTERS*) :\n") ;
+
+            gets(product.preamble_product) ;
+
+            strlwr(product.preamble_product) ;
+
+            printf("\n") ;
+
+            product.Uniqe_IDproduct[0] = '\0' ;
+
+            strcat(product.Uniqe_IDproduct , product.name_product) ;
+
+            puts(product.Uniqe_IDproduct) ;
+
+            lenght_Uniqeidproduct = strlen(product.Uniqe_IDproduct) ;
+
+            product.Uniqe_IDproduct[lenght_Uniqeidproduct ] = '_' ;
+
+            puts(product.Uniqe_IDproduct) ;
+
+            strcat(product.Uniqe_IDproduct,product.Model_product) ;
+
+            lenght_Uniqeidproduct = 0 ;
+
+            lenght_Uniqeidproduct = strlen(product.Uniqe_IDproduct) ;
+
+            product.Uniqe_IDproduct[lenght_Uniqeidproduct] = '_' ;
+
+            puts(product.Uniqe_IDproduct) ;
+
+            strcat(product.Uniqe_IDproduct , product.price_product) ;
+
+            puts(product.Uniqe_IDproduct) ;
+
+            product.mounts_product[0] = '0' ;
+
+            fwrite(&product , sizeof ( struct Products) , 1 , products2) ;
+
+            printf(">>The product has been saved<<") ;
+
+            fclose(products2) ;
+
+            Sleep(30000) ;
+
+            AdminMenu() ;
+        }
+        else if ( Admin_Enterchoice == 2)
+        {
+
+        }
+        else if ( Admin_Enterchoice == 3)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Log outing ... ") ;
+
+            Sleep(2000) ;
+
+            system("cls") ;
+
+            main() ;
+
+        }
+        else if ( Admin_Enterchoice == 4)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Thanks for using our application") ;
+
+            Sleep(2000) ;
+
+            system("cls") ;
+
+            exit(0) ;
+        }
+}
+int main()
+{
+   // system("start sina101.mp3") ;
+
+    printf("** Welcome to SAM( Sina's Arsenal management ) ** \t \t \t \t \t \t \t \t  Music Played : Fit girl :) \n ") ;
+
+    printf("1.SignUp !\n ") ;
+
+    printf("2.Login\n ") ;
+
+    printf("3.Exit\n ") ;
+
+    printf("4.Admin \n ") ;
+
+    printf(">> Please enter your choice: ") ;
+
+    int Enterchoice ;
+
+    char BackToFirstPage [32] ;
+
+    scanf("%d" , &Enterchoice) ;
+
+    if ( Enterchoice == 3 )
+    {
+        system("cls") ;
+
+        printf("Thanks for using our application") ;
+
+        Sleep(2000) ;
+
+        exit(0) ;
+    }
+    else if ( Enterchoice == 1 )
+    {
+        signup() ;
+    }
+    else if (Enterchoice == 2)
+    {
+        login() ;
+    }
+    else if ( Enterchoice == 4)
+    {
+        Admin() ;
+    }
+}
