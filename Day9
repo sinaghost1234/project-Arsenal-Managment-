@@ -1,0 +1,2025 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
+#include <string.h>
+#include <ctype.h>
+struct Members
+    {
+        char Name_newmember[30] ; // problems : 1- huffman biulder and huffman generator , 2- design , 3- username password if he use uncorrect order,
+
+        char LastName_newmemeber[30] ; // name , family don't have nums ... , password safety , deleting in password "backspace" , tavarom  kala , taghiraat dar hamomn lahze dar ghesmate sabte kala ya sabte nam
+
+        char controlname[30] ;
+
+        char id[30] ;
+
+        char phone_Number[30] ;
+
+        char email_Newmemeber[30] ;
+
+        char password_Newmember [30] ;
+
+        int password_WrongCounter ;
+
+        clock_t timoutclock_member ;
+
+        struct Members *next1 ;
+    } ;
+
+typedef  struct Members Members ;
+
+char Username[30] , password[30]  ;
+
+Members *head1 = NULL ;
+
+char BackToFirstPage [32] ;
+
+struct tm *cur_time = localtime(&now) ;
+
+struct Products
+    {
+        char name_product[30] ;
+
+        char Model_product[30] ;
+
+        char Brand [30] ;
+
+        long int price_product ;
+
+        char preamble_product[30] ;
+
+        long int mounts_product ;
+
+        char date_registerproduct [20] ;
+
+        struct Products *next;
+    };
+
+    typedef struct Products Products ;
+
+    Products *head = NULL ;
+
+    int i ;
+
+struct Reports
+{
+    char Report_Username [30] ;
+
+    char Report_Dateentering [20] ;
+
+    char Report_productnameuse[30] ;
+
+    char Report_productbranduse[30] ;
+
+    char Report_productmodeluse[30] ;
+
+    long int Report_mountusing ;
+
+    struct Reports *next2 ;
+
+};
+    typedef struct Reports Reports ;
+
+    Reports *head2 = NULL ;
+
+int timeout ( int seconds )
+{
+    clock_t endwait;
+
+    endwait = clock () + seconds * CLOCKS_PER_SEC ;
+
+    printf("You time outed for %d " , seconds) ;
+
+    while (clock() < endwait) {}
+
+    return  1;
+}
+void timeoutcheck (char str17[])
+{
+    Members *temp1 = head1 ;
+
+    int seconds ;
+
+    while ( temp1 != NULL )
+        {
+            if ( strcmp (temp1->controlname ,str17 ) == 0 )
+            {
+                while ( clock() < temp1->timoutclock_member )
+                {
+                    seconds = ( temp1->timoutclock_member - clock() ) / CLOCKS_PER_SEC ;
+
+                    printf("Your account has been timeout for %d " , seconds ) ;
+
+                    printf("\33[2K\r") ;
+                }
+            }
+            temp1 = temp1->next1 ;
+        }
+}
+void checkpassword ( char str5 [] )
+{
+        int p = 0 ;
+
+        while ( str5[p - 1 ]!= '\r' )
+            {
+                    str5[p] = getch() ;
+
+                if (str5[p - 1 ]!= '\r')
+                {
+                    printf("*") ;
+                }
+
+                p++ ;
+
+            }
+            str5[p-1] = '\0' ;
+}
+
+void getpassword( char str1[])
+{
+    int cirt = 0 ;
+
+    int safety_Password = 0 , length_getpassword ;
+
+   getstr1: for ( ; ; )
+    {
+       gets(str1) ;
+
+        length_getpassword = strlen(str1) ;
+
+        for ( cirt = 0 ; cirt < length_getpassword ; cirt++ )
+        {
+                if (( str1[cirt] >= 33 && str1[cirt] <= 47 ) || (str1[cirt] >= 58 && str1[cirt] <= 95 ) )
+                {
+                safety_Password = safety_Password + 1 ;
+                }
+        }
+
+        if ( length_getpassword < 8 )
+        {
+            printf("*Your password doesn't have enough characters , Try Again* ") ;
+
+            Sleep(3000) ;
+
+            printf("\33[2K\r") ;
+
+            printf("Enter your password again") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+            goto getstr1 ;
+
+        }
+        else if ( (length_getpassword > 8) && (safety_Password < 2) )
+        {
+            printf("*Use more symbols and alphabets for security*") ;
+
+            Sleep(3000) ;
+
+            printf("\33[2K\r") ;
+
+            printf("Enter your password again") ;
+
+            Sleep(1000) ;
+
+            printf("\33[2K\r") ;
+
+            goto getstr1 ;
+         }
+        else if ( (length_getpassword > 8 ) && ( safety_Password > 2  ))
+        {
+            printf("\t \t \t Prefect") ;
+
+            Sleep(2000) ;
+
+            printf("\33[2K\r") ;
+
+            break ;
+
+        }
+    }
+
+}
+void getname (char str10[])
+{
+    gets(str10) ;
+
+    int lenght_name ;
+
+    int digit ;
+
+    lenght_name = strlen(str10) ;
+
+    for ( i = 0 ; i < lenght_name ; i++)
+    {
+        digit = isdigit(str10[i]) ;
+
+        if ( digit == 1 )
+        {
+            printf("\nYou can't use digits for the name section ,\nTry again\n>>") ;
+
+            getname(str10) ;
+
+            break ;
+        }
+    }
+}
+void getFname(char str11[])
+{
+    gets(str11) ;
+
+    int lenght_Fname ;
+
+    int digit_1 ;
+
+    lenght_Fname = strlen(str11) ;
+
+    for ( i = 0 ; i < lenght_Fname ; i++)
+    {
+        digit_1 = isdigit(str11[i]) ;
+
+        if ( digit_1 == 1 )
+        {
+            printf("\nYou can't use digits for the family name section ,\nTry again\n>>") ;
+
+            getFname(str11) ;
+
+            break ;
+        }
+    }
+}
+void getID (char str12[])
+{
+   gets(str12) ;
+
+   int lenght_id ;
+
+   lenght_id = strlen(str12) ;
+
+   int alphabet ;
+
+   for ( i = 0 ; i < lenght_id ; i++)
+   {
+       alphabet = isalpha(str12[i]) ;
+
+       if ( alphabet == 1 || alphabet == 2  )
+       {
+           printf("\nYou can't use alphabets for the family name, \nTry again") ;
+
+           getID(str12) ;
+       }
+   }
+   if ( lenght_id > 10 || lenght_id < 10 )
+   {
+       printf("The ID number's digit is 10 ,\nTry Again\n>>") ;
+
+       getID(str12) ;
+   }
+}
+void getpnumber (char str13[])
+{
+   gets(str13) ;
+
+   int lenght_pnumber ;
+
+   lenght_pnumber = strlen(str13) ;
+
+   int alphabet_1 ;
+
+   for ( i = 0 ; i < lenght_pnumber ; i++)
+   {
+       alphabet_1 = isalpha(str13[i]) ;
+
+       if ( alphabet_1 == 1 || alphabet_1 == 2  )
+       {
+           printf("\nYou can't use alphabets for the family name, \nTry again") ;
+
+           getpnumber(str13) ;
+       }
+   }
+   if ( lenght_pnumber> 11 || lenght_pnumber < 11 )
+   {
+       printf("The ID number's digit is 10 ,\nTry Again\n>>") ;
+
+       getpnumber(str13) ;
+   }
+}
+void signup (void)
+{
+        signup :   system("cls") ;
+
+        printf(" SIGN UP \n \n") ;
+
+        printf("Create your SAM Account\n \n") ;
+
+        printf("Back to first page >> ""press 1"": \n") ;
+
+        printf("Continue >> ""press 2"":") ;
+
+    for ( ; ; )
+      {
+            gets(BackToFirstPage) ;
+
+            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+            {
+                system("cls") ;
+
+                main() ;
+            }
+
+            else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+            {
+                break ;
+            }
+
+            else if ( strlen(BackToFirstPage) != 1 )
+            {
+                printf("\nEnter the correct order : ") ;
+            }
+       }
+        Members Member ;
+
+        printf("First name :");
+
+        getname(Member.Name_newmember) ;
+
+        printf("\n") ;
+
+        printf("Last name :");
+
+        getFname(Member.LastName_newmemeber) ;
+
+        printf("\n") ;
+
+        printf("ID  :") ;
+
+        getID(Member.id) ;
+
+        printf("\n") ;
+
+        printf("Email *( Please enter the form Username@ABCDE.com )* :") ;
+
+        gets(Member.email_Newmemeber) ;
+
+        printf("\n") ;
+
+        printf("Phone number :") ;
+
+        getpnumber(Member.phone_Number) ;
+
+        printf("\n") ;
+
+        printf("Username :");
+
+        gets(Member.controlname) ;
+
+        printf("\n") ;
+
+        printf("Password ( Use 8 or more characters (max is 32) with mix of letters, numbers & symbols ) :  ") ;
+
+        int  length_Password , safety_Password , password_checkingCh = 0 , p = 0 ;
+
+        getpassword(Member.password_Newmember) ;
+
+        length_Password = strlen(Member.password_Newmember) ;
+
+        char confirm_password[32] ;
+
+        for ( ; ; )
+        {
+            printf("\nConfirm your password") ;
+
+            gets(confirm_password) ;
+
+            if ( strcmp(Member.password_Newmember , confirm_password) == 0 )
+            {
+                break ;
+            }
+            else
+            {
+                printf("The password and your confirming doesn't similar\n") ;
+
+                printf("Confirm again\n") ;
+            }
+        }
+        Member.password_WrongCounter = 0 ;
+
+        Member.timoutclock_member = NULL ;
+
+        Member.next1 = NULL ;
+
+        pushMember(Member) ;
+
+        printf("\nSigned up successfully") ;
+
+        Sleep(3000) ;
+
+        system("cls") ;
+
+        main() ;
+}
+void pushMember ( Members Member)
+{
+    Members *node1 = malloc(sizeof (Members)) ;
+
+    strcpy(node1->Name_newmember , Member.Name_newmember) ;
+
+    strcpy(node1->LastName_newmemeber , Member.LastName_newmemeber) ;
+
+    strcpy(node1->id , Member.id ) ;
+
+    strcpy (node1->phone_Number , Member.phone_Number) ;
+
+    strcpy(node1->email_Newmemeber , Member.email_Newmemeber) ;
+
+    strcpy(node1->controlname , Member.controlname ) ;
+
+    strcpy(node1->password_Newmember , Member.password_Newmember) ;
+
+    node1->password_WrongCounter = Member.password_WrongCounter ;
+
+    node1->timoutclock_member = Member.timoutclock_member ;
+
+    node1->next1 =NULL ;
+
+    if ( head1 == NULL)
+    {
+        head1 = node1 ;
+    }
+    else
+    {
+        Members *temp1 = head1 ;
+
+        while ( temp1->next1 != NULL ) temp1 = temp1->next1 ;
+
+        temp1->next1 = node1 ;
+
+    }
+}
+void filereadmembers(void)
+{
+    FILE *listmemberfile = fopen("E:\\listmemberfile.txt" , "r") ;
+
+    Members Member ;
+
+    while ( fread(&Member , sizeof(Members) , 1 , listmemberfile))
+    {
+        pushMember(Member) ;
+    }
+    fclose(listmemberfile) ;
+}
+void filewritemember(void)
+{
+    FILE *listmemberfile = fopen("E:\\listmemberfile.txt" , "w") ;
+
+    Members *temp1 = head1 ;
+
+    while ( temp1 != NULL )
+    {
+        fwrite(temp1 , sizeof (Members) , 1 ,listmemberfile) ;
+
+        temp1 = temp1->next1 ;
+    }
+    fclose(listmemberfile) ;
+}
+void pushreport ( Reports Report )
+{
+    Reports *node2 = malloc(sizeof (Reports)) ;
+
+    strcpy(node2->Report_Username , Report.Report_Username) ;
+
+    strcpy(node2->Report_Dateentering , Report.Report_Dateentering) ;
+
+    strcpy(node2->Report_productnameuse , Report.Report_productnameuse) ;
+
+    strcpy(node2->Report_productbranduse , Report.Report_productbranduse) ;
+
+    strcpy(node2->Report_productmodeluse , Report.Report_productmodeluse) ;
+
+    strcpy(node2->Report_Dateentering , Report.Report_Dateentering) ;
+
+    node2->Report_mountusing = Report.Report_mountusing ;
+
+    node2->next2 = NULL ;
+
+    if (head2 == NULL)
+    {
+        head2 =node2 ;
+    }
+    else
+    {
+        Reports *temp2 = head2 ;
+
+        while ( temp2 ->next2 != NULL) temp2 = temp2 ->next2 ;
+
+        temp2->next2 = node2 ;
+    }
+}
+void filereadreports(void)
+{
+    FILE *Reportslist = fopen("E:\\Reportslist.txt" , "r") ;
+
+    Reports Report ;
+
+    while ( fread(&Report , sizeof(Reports) , 1 , Reportslist))
+    {
+        pushreport(Report) ;
+    }
+    fclose(Reportslist) ;
+}
+void filewritereports(void)
+{
+    FILE *Reportslist = fopen("E:\\Reportslist.txt" , "w") ;
+
+    Reports *temp2 = head2 ;
+
+    while ( temp2 != NULL )
+    {
+        fwrite(temp2 , sizeof (Reports) , 1 ,Reportslist) ;
+
+        temp2 = temp2->next2 ;
+    }
+    fclose(Reportslist) ;
+}
+void pushproduct (Products Product)
+{
+    Products *node = malloc(sizeof (Products)) ;
+
+    strcpy(node->name_product , Product.name_product) ;
+
+    strcpy(node->Brand , Product.Brand) ;
+
+    strcpy(node->Model_product , Product.Model_product) ;
+
+    strcpy(node->preamble_product , Product.preamble_product) ;
+
+    node->date_registerproduct = Product.date_registerproduct ;
+
+    node->price_product = Product.price_product ;
+
+    node->mounts_product = Product.mounts_product ;
+
+    if (head == NULL)
+    {
+        head = node ;
+    }
+    else
+    {
+        Products *temp = head ;
+
+        while ( temp ->next != NULL) temp = temp ->next ;
+
+        temp ->next = node ;
+
+    }
+}
+void filereadingproduct(void)
+{
+    FILE *productList =fopen("E:\\Products.txt" , "r") ;
+
+    Products Product ;
+
+    while ( fread(&Product , sizeof ( struct Products) , 1, productList ))
+    {
+        pushproduct(Product) ;
+    }
+    fclose(productList) ;
+}
+void filewriteproduct(void)
+{
+    FILE *productList = fopen("E:\\Products.txt" , "w") ;
+
+    Products *temp = head ;
+
+    while( temp != NULL )
+    {
+        fwrite(temp , sizeof ( struct Products) , 1 , productList) ;
+
+        temp = temp -> next;
+    }
+    fclose(productList) ;
+}
+void login (void)
+{
+        int timeout_sec ;
+
+        system("cls") ;
+
+        printf("Login \n\n") ;
+
+        printf("Welcome to SAM\n\n") ;
+
+        printf("Don't have account ?  >> ""press 1"": \n") ;
+
+        printf("Continue >> ""press 2"":") ;
+
+        for ( ; ; )
+        {
+            gets(BackToFirstPage) ;
+
+            if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+            {
+                system("cls") ;
+
+                signup() ;
+            }
+
+            else if ((BackToFirstPage[0] == '2')&& ( strlen(BackToFirstPage) == 1 ) )
+            {
+               break ;
+            }
+
+            else if ( strlen(BackToFirstPage) != 1 )
+            {
+                printf("\nEnter the correct order : ") ;
+            }
+       }
+        Members *temp1 = head1 ;
+
+        printf("Enter your Username : ") ;
+
+        gets(Username);
+
+        while ( temp1 != NULL  )
+        {
+            if ( strcmp(temp1->controlname,Username) == 0 )
+            {
+                timeoutcheck(Username) ;
+
+                if ( temp1->password_WrongCounter < 5 )
+                {
+                    printf("Enter your Password : ") ;
+
+                    checkpassword(password) ;
+
+                    if ( strcmp(temp1->password_Newmember,password) == 0 )
+                    {
+                        printf("\nYou login ") ;
+
+                        Sleep(3000) ;
+
+                        system("cls") ;
+
+                        Management() ;
+                    }
+                    else
+                    {
+                        printf("password is wrong") ;
+
+                        temp1->password_WrongCounter ++ ;
+
+                        system("cls") ;
+
+                        login() ;
+
+                    }
+                }
+                else if ( temp1->password_WrongCounter >= 5 )
+                {
+                    timeout_sec = temp1->password_WrongCounter * 30 ;
+
+                    temp1->timoutclock_member = clock() + timeout_sec + CLOCKS_PER_SEC ;
+
+                    if ( timeout(timeout_sec) == 1 )
+                    {
+                        printf("\nThe %s account has been time outed for %d seconds " , Username , timeout_sec) ;
+                    }
+
+                }
+                else if ( temp1->password_WrongCounter >= 10 )
+                {
+                    timeout_sec = temp1->password_WrongCounter * 60 ;
+
+                    temp1->timoutclock_member = clock() + timeout_sec + CLOCKS_PER_SEC ;
+
+                    if ( timeout(timeout_sec) == 1 )
+                    {
+                        printf("\nThe %s account has been time outed for %d seconds " , Username , timeout_sec) ;
+                    }
+
+                }
+                else if ( temp1->password_WrongCounter >= 15 )
+                {
+                    timeout_sec = temp1->password_WrongCounter * 90 ;
+
+                    temp1->timoutclock_member = clock() + timeout_sec + CLOCKS_PER_SEC ;
+
+                    if ( timeout(timeout_sec) == 1 )
+                    {
+                        printf("\nThe %s account has been time outed for %d seconds " , Username , timeout_sec) ;
+                    }
+
+                }
+                else if ( temp1->password_WrongCounter >= 20 )
+                {
+                    timeout_sec = temp1->password_WrongCounter * 120 ;
+
+                    temp1->timoutclock_member = clock() + timeout_sec + CLOCKS_PER_SEC ;
+
+                    if ( timeout(timeout_sec) == 1 )
+                    {
+                        printf("\nThe %s account has been time outed for %d seconds " , Username , timeout_sec) ;
+                    }
+
+                }
+
+            }
+            temp1 = temp1->next1 ;
+        }
+
+        if ( temp1 == NULL)
+        {
+            printf("There is not User name with your entering in the files\n\n>> Make a new account *press 1* \n>> Try again *press 2* ") ;
+
+                for ( ; ; )
+                {
+                    gets(BackToFirstPage) ;
+
+                    if ((BackToFirstPage[0] == '1' ) && ( strlen(BackToFirstPage) == 1 ) )
+                        {
+                            system("cls") ;
+
+                            signup() ;
+                        }
+
+                    else if (BackToFirstPage[0] == '2'&& ( strlen(BackToFirstPage) == 1 ) )
+                        {
+                            system("cls") ;
+
+                            login() ;
+                        }
+
+                    else if ( strlen(BackToFirstPage) != 1 )
+                        {
+                            printf("\nEnter the correct order : ") ;
+                        }
+                }
+        }
+
+
+}
+int checkingproductouting( long int a , long int b )
+{
+    if ( a < b )
+    {
+        printf("\nThe amounts of this type of goods removed is more than the limit of the number of this type of goods in the arsenal") ;
+
+        Sleep(8000) ;
+
+        return 0 ;
+    }
+    else
+    {
+        return 1 ;
+    }
+}
+void Management(void)
+{
+    system("cls") ;
+
+    printf("Welcome to Arsenal management :\n\n") ;
+
+    printf("1.Registration of goods entering the Arsenal\n\n") ;
+
+    printf("2.Registration of goods outing the Arsenal\n\n") ;
+
+    printf("3.Report sections\n\n") ;
+
+    printf("4.User account settings\n\n") ;
+
+    printf("5.Logout\n\n") ;
+
+    printf("6.Close the program\n\n") ;
+
+    printf("Enter your order>>>") ;
+
+    int member_enterchoice ;
+
+    scanf("%d" , &member_enterchoice) ;
+
+    if (member_enterchoice == 1)
+    {
+        system("cls") ;
+
+        Products *temp = head ;
+
+        Reports Report ;
+
+        strcpy( Report.Report_Username  , Username ) ;
+
+        strftime(Report.Report_Dateentering , 30 , "%Y %m %d" , cur_time) ;
+
+        printf("Arsenal Management\n\n") ;
+
+        printf("Registration of goods entering the Arsenal\n\n\n\n") ;
+
+        printf("Search your product\n\n(NAME OF PRODUCT & NAME OF PRODUCT_BRAND & NAME OF PRODUCT_MODEL)\n\nfor example:\n\nName : television\n\nmodel : sony\n\nserial number : xz1000\n\n") ;
+
+        char serching_enteringProductname [30] ;
+
+        char serching_enteringProductbrand [30] ;
+
+        char serching_enteringProductmodel [30] ;
+
+        int numberof_producthaveIntiger , numberof_productenteringIntiger ;
+
+        printf("PRODUCTS NAME :") ;
+
+        scanf("%s" , serching_enteringProductname) ;
+
+        strlwr(serching_enteringProductname) ;
+
+        printf("PRODUCTS BRAND :") ;
+
+        scanf("%s" , serching_enteringProductbrand) ;
+
+        strlwr(serching_enteringProductbrand) ;
+
+        printf("PRODUCTS MODEL :") ;
+
+        scanf("%s" , serching_enteringProductmodel) ;
+
+        strlwr(serching_enteringProductmodel) ;
+
+        while ( temp != NULL )
+        {
+            if ( ( strcmp( temp->name_product , serching_enteringProductname) == 0) && (strcmp( temp->name_product , serching_enteringProductname) == 0)  &&  (strcmp( temp->name_product , serching_enteringProductname) == 0))
+                {
+                    strcpy(Report.Report_productnameuse , serching_enteringProductname) ;
+
+                    strcpy(Report.Report_productbranduse , serching_enteringProductbrand) ;
+
+                    strcpy(Report.Report_productmodeluse , serching_enteringProductmodel) ;
+
+                    printf("\nYour product was registered\n") ;
+
+                    printf("The amount of this product is : %d\n" , temp->mounts_product) ;
+
+                    printf("\nHow many of this product do you want to add to arsenal? \n") ;
+
+                    printf(">>>") ;
+
+                    scanf("%d" , numberof_productenteringIntiger) ;
+
+                    temp->mounts_product = temp->mounts_product + numberof_productenteringIntiger ;
+
+                    Report.Report_mountusing = numberof_productenteringIntiger ;
+
+                    printf("\nThe mount of product has been updated\n") ;
+
+                    pushreport(Report) ;
+
+                    Sleep(5000) ;
+
+                    Management() ;
+                }
+            temp = temp->next ;
+         }
+         if ( temp == NULL )
+         {
+             printf("This product Doesn't registered in data base") ;
+
+             Sleep (4000) ;
+
+             Management() ;
+         }
+
+    }
+    else if ( member_enterchoice == 2)
+    {
+        system("cls") ;
+
+        Products *temp = head ;
+
+        Reports Report ;
+
+        strcpy( Report.Report_Username  , Username ) ;
+
+        strftime(Report.Report_Dateentering , 30 , "%Y %m %d" , cur_time) ;
+
+        printf("Arsenal Management\n\n") ;
+
+        printf("Registration of goods outing the Arsenal\n\n\n\n") ;
+
+        printf("Search your product\n\n(NAME OF PRODUCT & NAME OF PRODUCT_BRAND & NAME OF PRODUCT_MODEL)\n\nfor example:\n\nName : television\n\nmodel : sony\n\nserial number : xz1000\n\n") ;
+
+        char serching_outingProductname [30] ;
+
+        char serching_outingProductbrand [30] ;
+
+        char serching_outingProductmodel [30] ;
+
+        long int numberof_productoutingIntiger , numberof_producthaveIntiger2 ;
+
+        printf("PRODUCTS NAME :") ;
+
+        scanf("%s" , serching_outingProductname) ;
+
+        strlwr(serching_outingProductname) ;
+
+        printf("PRODUCTS BRAND :") ;
+
+        scanf("%s" , serching_outingProductbrand) ;
+
+        strlwr(serching_outingProductbrand) ;
+
+        printf("PRODUCTS MODEL :") ;
+
+        scanf("%s" , serching_outingProductmodel) ;
+
+        strlwr(serching_outingProductmodel) ;
+
+        while ( temp != NULL )
+        {
+            if ( ( strcmp( temp->name_product , serching_outingProductname) == 0) && (strcmp( temp->Brand , serching_outingProductbrand) == 0)  &&  (strcmp( temp->Model_product , serching_outingProductmodel) == 0))
+                {
+                    strcpy(Report.Report_productnameuse , serching_outingProductname) ;
+
+                    strcpy(Report.Report_productbranduse , serching_outingProductbrand) ;
+
+                    strcpy(Report.Report_productmodeluse , serching_outingProductmodel) ;
+
+                    printf("\nYour product was registered\n") ;
+
+                    printf("The amount of this product is : %s" , temp->mounts_product) ;
+
+                    printf("How many of this product do you want to outing of arsenal? \n") ;
+
+                    printf(">>>") ;
+
+                    scanf("%d" , numberof_productoutingIntiger) ;
+
+                    numberof_producthaveIntiger2 = temp->mounts_product ;
+
+                    for ( ; ; )
+                    {
+                        scanf("%d" , numberof_productoutingIntiger) ;
+
+                        if ( checkingproductouting(numberof_producthaveIntiger2 , numberof_productoutingIntiger) == 0  )
+                        {
+                            printf("\nTry again") ;
+
+                            Sleep(3000) ;
+
+                            printf("\33[2K\r") ;
+
+                            printf(">>>") ;
+                        }
+                        else if (checkingproductouting(numberof_producthaveIntiger2 , numberof_productoutingIntiger) == 1)
+                        {
+                            break ;
+                        }
+                    }
+
+                    Report.Report_mountusing = (numberof_productoutingIntiger) * -1 ;
+
+                    temp->mounts_product = temp->mounts_product - numberof_productoutingIntiger ;
+
+                    printf("\nThe mount of product has been updated\n") ;
+
+                    pushreport(Report) ;
+
+                    Sleep(5000) ;
+
+                    Management() ;
+                }
+            temp = temp->next ;
+         }
+         if ( temp == NULL )
+         {
+             printf("This product Doesn't registered in data base") ;
+
+             Sleep (4000) ;
+
+             Management() ;
+         }
+
+    }
+
+
+    else if ( member_enterchoice == 3)
+    {
+
+    }
+    else if ( member_enterchoice == 4)
+    {
+        system("cls") ;
+
+        Members *temp1 = head1 ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("User account settings\n\n") ;
+
+        printf("changing :\n") ;
+
+        printf("1.Email \n") ;
+
+        printf("2.Phone Number \n") ;
+
+        printf("3.Username \n ") ;
+
+        printf("4.Password \n") ;
+
+        printf("5.Back to main menu \n") ;
+
+        printf(">>>") ;
+
+        int member_editenterchoice ;
+
+        scanf("%d" , &member_editenterchoice) ;
+
+        char Username_change [30] ;
+
+        if (member_editenterchoice == 3)
+        {
+
+            while (temp1 != NULL )
+            {
+                if  ( strcmp(Username , temp1->controlname)== 0)
+                {
+                    printf("Enter the new User name:\n") ;
+
+                    printf(">>>\n") ;
+
+                    gets(Username_change) ;
+
+                    strcpy(temp1->controlname , Username_change ) ;
+
+                    printf("Changed successfully\n") ;
+
+                    Management() ;
+                }
+                temp1 = temp1->next1 ;
+
+            }
+
+
+        }
+        else if (member_editenterchoice == 1)
+        {
+            char email_change[30] ;
+
+            while (temp1 != NULL )
+            {
+                if  ( strcmp(Username , temp1->controlname)== 0)
+                {
+                    printf("Enter the new Email*( Please enter the form Username@ABCDE.com )*:\n") ;
+
+                    printf(">>>") ;
+
+                    gets(email_change) ;
+
+                    strcpy(temp1->email_Newmemeber , email_change ) ;
+
+                    printf("\nChanged successfully\n") ;
+
+                    Management() ;
+                }
+                temp1 = temp1->next1 ;
+
+            }
+        }
+        else if (member_editenterchoice == 2)
+        {
+            char pnumber_change[30] ;
+
+            while (temp1 != NULL )
+            {
+                if  ( strcmp(Username , temp1->controlname)== 0)
+                {
+                    printf("Enter the new phone number*( Please enter the form 09******** )*:\n") ;
+
+                    printf(">>>") ;
+
+                    getpnumber(pnumber_change) ;
+
+                    strcpy(temp1->phone_Number , pnumber_change ) ;
+
+                    printf("\nChanged successfully\n") ;
+
+                    Management() ;
+                }
+                temp1 = temp1->next1 ;
+            }
+
+        }
+
+        else if ( member_editenterchoice == 4)
+        {
+
+        char password_change [30] ;
+
+            while (temp1 != NULL )
+            {
+                if  ( strcmp(Username , temp1->controlname)== 0 )
+                {
+                    printf("Enter the new Password *( Use 8 or more characters (max is 32) with mix of letters, numbers & symbols )* :\n") ;
+
+                    printf(">>>") ;
+
+                    getpassword(password_change) ;
+
+                    strcpy(temp1->password_Newmember , password_change ) ;
+
+                    printf("\nChanged successfully\n") ;
+
+                    Management() ;
+                }
+                temp1 = temp1->next1 ;
+
+            }
+
+        }
+        else if ( member_editenterchoice == 5)
+        {
+            system("cls") ;
+
+            printf("Back to the menu ...") ;
+
+            Sleep(3000) ;
+
+            Management() ;
+
+        }
+
+    }
+    else if ( member_enterchoice == 5)
+    {
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Log outing ... ") ;
+
+        filewriteproduct() ;
+
+        filewritereports() ;
+
+        filewriteproduct() ;
+
+        Sleep(2000) ;
+
+        system("cls") ;
+
+        main() ;
+
+    }
+    else if ( member_enterchoice == 6)
+    {
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Thanks for using our application") ;
+
+        filewriteproduct() ;
+
+        filewritereports() ;
+
+        filewriteproduct() ;
+
+        Sleep(2000) ;
+
+        system("cls") ;
+
+        exit(0) ;
+    }
+
+}
+void Admin(void)
+{
+    system("cls") ;
+
+    printf("Welcome to SAM , sir \n") ;
+
+    system("cls") ;
+
+    printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+    printf("*Welcome sir*\n\n") ;
+
+    printf("Enter the Username:") ;
+
+    char admin_username[6] = "admin" ;
+
+    char admin_UNcheck[32] ;
+
+    scanf("%s" , admin_UNcheck) ;
+
+    char admin_password[9] = "00000000" ;
+
+    char admin_PWcheck[32] ;
+
+    int admin_pwCh = 0 ;
+
+    printf("Enter the password :") ;
+
+    checkpassword(admin_PWcheck) ;
+
+    for ( ; ; )
+        {
+            if ( ( strcmp(admin_username , admin_UNcheck ) == 0 ) && ( strcmp(admin_password , admin_PWcheck) == 0 ) )
+            {
+                printf("\nYou entered , Sir\n") ;
+
+                Sleep(3000) ;
+
+                break ;
+            }
+
+            else if(( strcmp(admin_username , admin_UNcheck ) != 0 ) || ( strcmp(admin_password , admin_PWcheck) != 0 ))
+            {
+                    printf("\nUsername or Password does not match\n") ;
+
+                    Sleep(3000) ;
+
+                    Admin();
+
+            }
+        }
+
+    AdminMenu() ;
+
+}
+void Adminreportsection (void)
+{
+    Reports *temp2 = head2 ;
+
+    Products *temp = head ;
+
+    Members *temp1 = head1 ;
+
+    char name_productreportsearch[30] ;
+
+    char Brand_productreportsearch[30] ;
+
+    char Model_productreportsearch[30] ;
+
+    char limittime_1 [20] ;
+
+    char limittile_2 [20] ;
+
+    char
+
+    int limit = 0 ;
+
+    system("cls") ;
+
+    printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+    printf("Report sections\n\n") ;
+
+    printf("Enter the sections do you want to search :\n\n") ;
+
+    printf(">>>") ;
+
+    system("cls") ;
+
+    printf("SINA'S ARSENAL MANAGEMENT\n\n") ; // kalahayii ke vared shode az che brand e ,
+
+    printf("Reports of products\n\n") ;
+
+    printf("1.Number of products in the Arsenal\n\n") ;
+
+    printf("2.Number of a specific Brand of Products in the Arsenal\n\n") ;
+
+    printf("3.Number of a specific model of a Brand product in the Arsenal\n\n") ;
+
+    printf("4.The list of products of which we have more than a certain amount ( you need to enter )\n\n") ;
+
+    printf("5.The list of products of which we have less than a certain amount ( you need to enter )\n\n") ;
+
+    printf("6.The dollar value of all products in Arsenal\n\n") ;
+
+    printf("7.The dollar value of a specific Brand in Arsenal\n\n") ;
+
+    printf("8.The dollar value of a specific Model of a Brand in Arsenal\n\n") ;
+
+    printf("9.The certain amount ( you need to enter ) of last transaction of type of goods (you need to enter) \n\n") ;
+
+    printf("10.The number of arrivals of a specific product ( you need to enter )in a specific historical period ( you need to enter )\n\n") ;
+
+    printf("11.The number of arrivals of all products in a specific time\n\n") ;
+
+    printf("12.The number of exits of a specific product ( you need to enter )in a specific historical period ( you need to enter )\n\n") ;
+
+    printf("11.The number of exits of all products in a specific time\n\n") ;
+
+    printf("13.The list of transactions registered by a specific user \n\n") ;
+
+    printf("14.The list of last certain amount (you need to enter) of transactions a specific user (you need to search)\n\n") ;
+
+    printf("15.The list of Users and The date of last update of each user\n\n") ;
+
+    printf(">>>") ;
+
+    int amount = 0  ;
+
+    int enter_reportadminchoice ;
+
+    scanf("%" , &enter_reportadminchoice) ;
+
+    if ( enter_reportadminchoice == 1  )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Number of products in the Arsenal\n\n") ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                    amount = amount + temp->mounts_product ;
+
+                    temp = temp->next ;
+            }
+
+            printf("\nThe Amount of ALL PRODUCTS in the  Arsenal is %d\n" , amount) ;
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 2 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Number of a specific Brand of Products in the Arsenal\n\n") ;
+
+            amount = 0 ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            while ( temp != NULL )
+            {
+                if (strcmp (Brand_productreportsearch , temp->Brand)== 0 )
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Brand Type : %s \nProducts Type : %s \nModel Type : %s \nPrice = %d \nAmount = %d \nTotal Price = %d" , temp->Brand , temp->name_product,
+
+                           temp->Model_product , temp->price_product , temp->mounts_product , amount ) ;
+
+                    printf("--------------------------------------") ;
+
+                 }
+                temp = temp->next ;
+
+            }
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 3)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Number of a specific model of a Brand product in the Arsenal\n\n") ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Model in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            amount = 0 ;
+
+            strlwr(Model_productreportsearch) ;
+
+            while ( temp != NULL)
+            {
+                if ( (strcmp(temp->Brand , Brand_productreportsearch)== 0 )&& (strcmp(temp->Model_product , Model_productreportsearch) == 0 ))
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Products Type : %s \nBrand Type : %s \nModel Type : %s \nPrice = %d \nAmount = %d \nTotal Price = %d ");
+
+
+                }
+                temp = temp ->next ;
+            }
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 4)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of products of which we have more than a certain amount\n\n") ;
+
+            printf("Enter the Limit (*amounts*) \n") ;
+
+            printf(">>>") ;
+
+            scanf("%d" , &limit) ;
+
+            printf("\n THE LIST OF PRODUCTS THAT ARE UPPER THAN %d MOUNT \n " , limit) ;
+
+            printf("-------------\n\n\n") ;
+
+            while ( temp != NULL )
+            {
+                if ( temp->mounts_product > limit )
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Brand Type : %s \nProducts Type : %s \nModel Type : %s \nPrice = %d \nAmount = %d \nTotal Price = %d" , temp->Brand , temp->name_product,
+
+                    temp->Model_product , temp->price_product , temp->mounts_product , amount ) ;
+
+                    printf("------------------------") ;
+
+                }
+                temp = temp->next ;
+            }
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+
+        }
+        else if ( enter_reportadminchoice == 5)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of products of which we have less than a certain amount\n\n") ;
+
+            printf("Enter the Limit (*amounts*) \n") ;
+
+            printf(">>>") ;
+
+            scanf("%d" , &limit) ;
+
+            printf("\n THE LIST OF PRODUCTS THAT ARE UNDER THE %d MOUNT \n " , limit) ;
+
+            printf("-------------\n\n\n") ;
+
+            while ( temp != NULL )
+            {
+                if ( temp->mounts_product < limit )
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Brand Type : %s \t Products Type : %s \t Model Type : %s \t Price = %d \t Amount = %d \t Total Price = %d" , temp->Brand , temp->name_product,
+
+                    temp->Model_product , temp->price_product , temp->mounts_product , amount ) ;
+
+                    printf("\t\t\t\t\t----------------------------------------------------------------------------") ;
+
+                }
+                temp = temp->next ;
+            }
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 6 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The dollar value of all products in Arsenal\n\n") ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                    amount = amount + temp->mounts_product *temp->price_product ;
+
+                    temp = temp->next ;
+            }
+
+            printf("\nThe Total Dollar Value of ALL PRODUCTS in the  Arsenal is %d\n" , amount) ;
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 7 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The dollar value of a specific Brand in Arsenal\n\n") ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                if ( strcmp(Brand_productreportsearch , temp->Brand) == 0 )
+                {
+                    amount = amount + temp->mounts_product *temp->price_product ;
+                }
+
+                temp = temp->next ;
+            }
+
+            printf("\nThe Total Dollar Value of OF THIS BRAND in the  Arsenal is %d\n" , amount) ;
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 8 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The dollar value of a specific Model of a Brand in Arsenal\n\n") ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Model in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                if ( (strcmp(temp->Brand , Brand_productreportsearch)== 0 )&& (strcmp(temp->Model_product , Model_productreportsearch) == 0 )  )
+                {
+                    amount = amount + temp->mounts_product *temp->price_product ;
+                }
+
+                temp = temp->next ;
+            }
+
+            printf("\nThe Total Dollar Value of OF THIS BRAND in the  Arsenal is %d\n" , amount) ;
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 9 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The certain amount ( you need to enter ) of last transaction of this type of goods\n\n") ;
+
+            i = 0 ;
+
+            printf("\nEnter the specific Product's name in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Model  in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            printf("\nEnter the limits of last transaction of this type of product\n\n") ;
+
+            printf(">>>") ;
+
+            scanf("%d" , &i ) ;
+
+            int counter ;
+
+            while ( temp2 != NULL)
+            {
+                if ( (strcmp(temp2->Report_productnameuse , name_productreportsearch) == 0) && (strcmp(temp2->Report_productbranduse , Brand_productreportsearch)== 0 )&& (strcmp(temp2->Report_productmodeluse , Model_productreportsearch) == 0 ))
+                {
+                    while ( temp1 != NULL )
+                    {
+                        if ( strcmp(temp2->Report_Username , temp1->controlname ) == 0 )
+                        {
+                            if ( temp2->Report_mountusing < 0 )
+                            {
+
+                                printf("User name : %s\n\nName : %s \nLast name : %s \nBrand Type : %s \t Products Type : %s \t Model Type : %s\nMounts of Product outing : %d\n Date Of Transaction( Outing ): %s \n Date Of Registered : %s \n"
+                                       , temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse
+                                       , temp2->Report_mountusing , asctime(temp2->Report_Dateentering) , asctime(temp->date_registerproduct)) ;
+
+                                printf("-------------------------") ;
+
+                                i++ ;
+
+                            }
+                            else if (temp2->Report_mountusing > 0  )
+                            {
+                                printf("User name : %s\n\nName : %s \nLast name : %s \nBrand Type : %s \t Products Type : %s \t Model Type : %s\nMounts of Product outing : %d\n Date Of Transaction (Entering): %s \n Date Of Registered : %s \n"
+                                        , temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse
+                                        , temp2->Report_mountusing , asctime(temp2->Report_Dateentering) , asctime(temp->date_registerproduct)) ;
+
+                                printf("-------------------------") ;
+
+                            }
+                        }
+                        temp1 =temp1->next1 ;
+                    }
+                }
+                if ( i = 5 )
+                {
+                    break ;
+                }
+               temp2 = temp2->next2 ;
+            }
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 10 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The number of arrivals of a specific product in a specific historical period \n\n") ;
+
+            printf("\nEnter the specific Product's name in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Model  in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            printf("Enter your time frame like this : ( San Aug 2021 )") ;
+
+            gets ()
+
+
+
+        }
+}
+void AdminMenu(void)
+{
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Welcome sir\n") ;
+
+        printf("Enter your order>>>\n\n") ;
+
+        printf("1.New product registration\n\n") ;
+
+        printf("2.Report sections\n\n") ;
+
+        printf("3.Logout\n\n") ;
+
+        printf("4.Close the program\n\n") ;
+
+        printf(">>>") ;
+
+        int Admin_Enterchoice ;
+
+        scanf("%d" , &Admin_Enterchoice) ;
+
+        if ( Admin_Enterchoice == 1)
+        {
+            productAdminCheck() ;
+
+            Products Product ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("New product registration\n\n\n");
+
+            printf("Product's Name : ") ;
+
+            char randomest_strforfixingBug1[1] ;
+
+            gets(randomest_strforfixingBug1) ;
+
+            gets(Product.name_product) ;
+
+            strlwr(Product.name_product) ;
+
+            printf("\n") ;
+
+            printf("Product's Brand : ") ;
+
+            gets(Product.Brand) ;
+
+            strlwr(Product.Brand) ;
+
+            printf("\n") ;
+
+            printf("Product's model : ") ;
+
+            gets(Product.Model_product) ;
+
+            strlwr(Product.Model_product) ;
+
+            printf("\n") ;
+
+            printf("Product's price ""$$$DOLLARS$$$"" : ") ;
+
+            scanf("%d" , &Product.price_product) ;
+
+            printf("\n") ;
+
+            printf("Enter the preamble of this product (*MAX 100 LETTERS*) :\n") ;
+
+            gets(Product.preamble_product) ;
+
+            printf("\n") ;
+
+            Product.mounts_product = 0 ;
+
+            `strftime(Report.Report_Dateentering , 30 , "%Y %m %d" , cur_time) ;
+
+            Product.next = NULL ;
+
+            pushproduct(Product) ;
+
+            printf(">>The product has been saved<<") ;
+
+            Sleep(3000) ;
+
+            system("cls") ;
+
+            AdminMenu() ;
+        }
+        else if ( Admin_Enterchoice == 2)
+        {
+            Adminreportsection() ;
+        }
+
+        else if ( Admin_Enterchoice == 3)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Log outing ... ") ;
+
+            Sleep(2000) ;
+
+            filewriteproduct() ;
+
+            filewritereports() ;
+
+            filewriteproduct() ;
+
+            system("cls") ;
+
+            main() ;
+
+        }
+        else if ( Admin_Enterchoice == 4)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Thanks for using our application") ;
+
+            filewriteproduct() ;
+
+            filewritereports() ;
+
+            filewriteproduct() ;
+
+            Sleep(2000) ;
+
+            system("cls") ;
+
+            exit(0) ;
+        }
+
+}
+void productAdminCheck(void)
+{
+        system("cls") ;
+
+        Products *temp = head ;
+
+        int lenght_Uniqeidproduct = 0 ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("New product registration\n\n\n");
+
+        printf("Before the registering,... \n\n*search your new product that may have registered in the data base*\n\n") ;
+
+        printf("Search your product\n\n(NAME OF PRODUCT & NAME OF PRODUCT_BRAND & NAME OF PRODUCT_MODEL)\n\nfor example:\n\nName : television\n\nmodel : sony\n\nserial number : xz1000\n\n") ;
+
+        printf("\n") ;
+
+        char productentering_Namesearch[30] ;
+
+        char productentering_Brandsearch[30] ;
+
+        char productentering_Modelsearch[30] ;
+
+        printf("PRODUCT'S NAME :") ;
+
+        printf(">>") ;
+
+        scanf("%s" , productentering_Namesearch) ;
+
+        printf("PRODUCT'S BRAND:") ;
+
+        printf(">>") ;
+
+        scanf("%s" , productentering_Brandsearch) ;
+
+        printf("PRODUCT'S MODEL:") ;
+
+        printf(">>") ;
+
+        scanf("%s" , productentering_Modelsearch) ;
+
+        strlwr(productentering_Namesearch) ;
+
+        strlwr(productentering_Brandsearch) ;
+
+        strlwr(productentering_Modelsearch) ;
+
+        while (temp != NULL)
+        {
+        if  ((strcmp(temp->name_product , productentering_Namesearch) == 0 ) && (strcmp(temp->Brand ,productentering_Brandsearch) == 0 )&& ( strcmp(temp->Model_product , productentering_Modelsearch)== 0 ))
+                {
+                    printf("This product was saved\n") ;
+
+                    Sleep(2000) ;
+
+                    AdminMenu() ;
+                }
+            temp = temp->next ;
+        }
+        if ( temp == NULL )
+        {
+            printf("This product wasn't saved") ;
+
+            Sleep(3000) ;
+        }
+        system("cls") ;
+}
+int main()
+{
+   // system("start sina101.mp3") ;
+
+    printf("** Welcome to SAM( Sina's Arsenal management ) ** \t \t \t \t \t \t \t \t  Music Played : Fit girl :) \n ") ;
+
+    printf("1.SignUp\n ") ;
+
+    printf("2.Login\n ") ;
+
+    printf("3.Exit\n ") ;
+
+    printf("4.Admin \n ") ;
+
+    printf(">> Please enter your choice: ") ;
+
+    filereadmembers() ;
+
+    filereadingproduct() ;
+
+    filereadreports() ;
+
+    atexit(filewritemember) ;
+
+    atexit(filewriteproduct) ;
+
+    atexit(filewritereports) ;
+
+    int Enterchoice ;
+
+    char BackToFirstPage [32] ;
+
+    scanf("%d" , &Enterchoice) ;
+
+    if ( Enterchoice == 3 )
+    {
+        system("cls") ;
+
+        printf("Thanks for using our application") ;
+
+        filewritemember() ;
+
+        filewriteproduct() ;
+
+        filewritereports() ;
+
+        Sleep(2000) ;
+
+        exit(0) ;
+    }
+    else if ( Enterchoice == 1 )
+    {
+        signup() ;
+    }
+    else if (Enterchoice == 2)
+    {
+        login() ;
+    }
+    else if ( Enterchoice == 4)
+    {
+        Admin() ;
+    }
+}
