@@ -1,0 +1,12 @@
+void filereadmembers(void)
+{
+    FILE *listmemberfile = fopen("E:\\listmemberfile.txt" , "r") ;
+
+    Members Member ;
+
+    while ( fread(&Member , sizeof(Members) , 1 , listmemberfile))
+    {
+        pushMember(Member) ;
+    }
+    fclose(listmemberfile) ;
+}
