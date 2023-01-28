@@ -1,0 +1,12 @@
+void filereadingproduct(void)
+{
+    FILE *productList =fopen("E:\\Products.txt" , "r") ;
+
+    Products Product ;
+
+    while ( fread(&Product , sizeof ( struct Products) , 1, productList ))
+    {
+        pushproduct(Product) ;
+    }
+    fclose(productList) ;
+}
