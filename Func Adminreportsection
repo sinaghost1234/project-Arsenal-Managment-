@@ -1,0 +1,2362 @@
+void Adminreportsection (void)
+{
+    Reports *temp2 = head2 ;
+
+    Products *temp = head ;
+
+    Members *temp1 = head1 ;
+
+    int b = 0 ;
+
+    int d = 0 ;
+
+    int counter_2 = 0 ;
+
+    int arr[30] ;
+
+    system("cls") ;
+
+    printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+    printf("Report sections\n\n") ;
+
+    printf("Enter the section:\n\n") ;
+
+    printf("****AMOUNTS OF PRODUCT****\n") ;
+
+    printf("1.Number of products in the Arsenal\n\n") ;
+
+    printf("2.Number of a specific Brand of Products in the Arsenal\n\n") ;
+
+    printf("3.Number of a specific model of a Brand product in the Arsenal\n\n") ;
+
+    printf("4.The list of products of which we have more than a certain amount ( you need to enter )\n\n") ;
+
+    printf("5.The list of products of which we have less than a certain amount ( you need to enter )\n\n") ;
+
+    printf("6.The number of arrivals of a specific product ( you need to enter )in a specific historical period ( you need to enter )\n\n") ;
+
+    printf("7.The number of arrivals of all products in a specific time\n\n") ;
+
+    printf("8.The number of exits of a specific product ( you need to enter )in a specific historical period ( you need to enter )\n\n") ;
+
+    printf("9.The number of exits of all products in a specific historical period ( you need to enter ) \n\n") ;
+
+    printf("****DOLLAR VALUES****\n") ;
+
+    printf("10.The dollar value of all products in Arsenal\n\n") ;
+
+    printf("11.The dollar value of a specific Brand in Arsenal\n\n") ;
+
+    printf("12.The dollar value of a specific Model of a Brand in Arsenal\n\n") ;
+
+    printf("****TRANSACTION****\n") ;
+
+    printf("13.The certain amount ( you need to enter ) of last transaction of type of goods (you need to enter) \n\n") ;
+
+    printf("14.The list of transactions registered by a specific user \n\n") ;
+
+    printf("15.The list of transactions registered by a specific user in a specific historical period (you need to enter )\n\n") ;
+
+    printf("16.The list of last certain amount (you need to enter) of transactions a specific user (you need to search)\n\n") ;
+
+    printf("17.The list of All Members\n\n") ;
+
+    printf("18.The list of All Products\n\n") ;
+
+    printf("****CHARTS****\n") ;
+
+    printf("19.Column chart in a specific month of arrivals of a specific Name product (you need to enter)\n\n") ;
+
+    printf("20.Column chart in a specific year of arrivals of a specific Name product (you need to enter)\n\n") ;
+
+    printf("21.Column chart in a specific month of arrivals of a specific Brand of product (you need to enter)\n\n") ;
+
+    printf("22.Column chart in a specific year of arrivals of a specific Brand of product (you need to enter)\n\n") ;
+
+    printf("23.Column chart in a specific month of arrivals of a specific Model of product (you need to enter)\n\n") ;
+
+    printf("24.Column chart in a specific year of arrivals of a specific Model product (you need to enter)\n\n") ;
+
+    printf("25.Column chart in a specific month of exits of a specific Name product (you need to enter)\n\n") ;
+
+    printf("26.Column chart in a specific year of exits of a specific Name product (you need to enter)\n\n") ;
+
+    printf("27.Column chart in a specific month of exits of a specific Brand of product (you need to enter)\n\n") ;
+
+    printf("28.Column chart in a specific year of exits of a specific Brand of product (you need to enter)\n\n") ;
+
+    printf("29.Column chart in a specific month of exits of a specific Model of product (you need to enter)\n\n") ;
+
+    printf("30.Column chart in a specific year of exits of a specific Model product (you need to enter)\n\n") ;
+
+    printf("31.Back to first menu\n\n") ;
+
+    printf(">>>") ;
+
+    int enter_reportadminchoice ;
+
+    scanf("%d" , &enter_reportadminchoice) ;
+
+    if ( enter_reportadminchoice == 1  )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Number of products in the Arsenal\n\n") ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                    amount = amount + temp->mounts_product ;
+
+                    temp = temp->next ;
+            }
+
+            printf("\nThe Amount of ALL PRODUCTS in the  Arsenal is %d\n" , amount) ;
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 2 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Number of a specific Brand of Products in the Arsenal\n\n") ;
+
+            amount = 0 ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            while ( temp != NULL )
+            {
+                if (strcmp (Brand_productreportsearch , temp->Brand)== 0 )
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Brand Type : %s \nProducts Type : %s \nModel Type : %s \nPrice : %d \nAmount : %d \nTotal Price : %d\n" , temp->Brand , temp->name_product,
+
+                           temp->Model_product , temp->price_product , temp->mounts_product , amount ) ;
+
+                    printf("----------------------------") ;
+
+                 }
+                temp = temp->next ;
+
+            }
+            if ( temp == NULL )
+            {
+                printf("\n\nTHERE IS NO PRODUCT IN THE DATA BASE WITH YOUR BRAND ENTER\n") ;
+
+                printf("\nPress any key to continue ...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 3)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Number of a specific model of a Brand product in the Arsenal\n\n") ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Model in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            amount = 0 ;
+
+            strlwr(Model_productreportsearch) ;
+
+            while ( temp != NULL)
+            {
+                if ( (strcmp(temp->Brand , Brand_productreportsearch)== 0 )&& (strcmp(temp->Model_product , Model_productreportsearch) == 0 ))
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Products Type : %s \nBrand Type : %s \nModel Type : %s \nPrice = %d \nAmount : %d \nTotal Price : %d\n");
+
+
+                }
+                temp = temp ->next ;
+            }
+            if ( temp == NULL )
+            {
+                printf("\n\nTHERE IS NO PRODUCT IN THE DATA BASE WITH YOUR BRAND AND MODEL ENTER\n") ;
+
+                printf("\nPress any key to continue ...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 4)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of products of which we have more than a certain amount\n\n") ;
+
+            printf("Enter the Limit (*amounts*) \n") ;
+
+            printf(">>>") ;
+
+            scanf("%d" , &limit) ;
+
+            printf("\n THE LIST OF PRODUCTS THAT ARE UPPER THAN %d MOUNT \n " , limit) ;
+
+            printf("-------------\n\n\n") ;
+
+            while ( temp != NULL )
+            {
+                if ( temp->mounts_product > limit )
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Brand Type : %s \nProducts Type : %s \nModel Type : %s \nPrice = %d \nAmount = %d \nTotal Price = %d\n" , temp->Brand , temp->name_product,
+
+                    temp->Model_product , temp->price_product , temp->mounts_product , amount ) ;
+
+                    printf("------------------------\n") ;
+
+                }
+                temp = temp->next ;
+            }
+            if ( temp == NULL )
+            {
+                printf("\n\nTHERE IS NO PRODUCT IN THE DATA BASE THAT ARE UPPER THE %d MOUNT \n" , limit ) ;
+
+                printf("\nPress any key to continue ...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+
+        }
+        else if ( enter_reportadminchoice == 5)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of products of which we have less than a certain amount\n\n") ;
+
+            printf("Enter the Limit (*amounts*) \n") ;
+
+            printf(">>>") ;
+
+            scanf("%d" , &limit) ;
+
+            printf("\n THE LIST OF PRODUCTS THAT ARE UNDER THE %d MOUNT \n " , limit) ;
+
+            printf("-------------\n\n\n") ;
+
+            while ( temp != NULL )
+            {
+                if ( temp->mounts_product < limit )
+                {
+
+                    amount = temp->mounts_product * temp->price_product ;
+
+                    printf("Brand Type : %s \nProducts Type : %s \nModel Type : %s \nPrice = %d \nAmount = %d \nTotal Price = %d\n" , temp->Brand , temp->name_product,
+
+                    temp->Model_product , temp->price_product , temp->mounts_product , amount ) ;
+
+                    printf("------------------------------------\n") ;
+
+                }
+                temp = temp->next ;
+            }
+            if ( temp == NULL )
+            {
+                printf("\n\nTHERE IS NO PRODUCT IN THE DATA BASE THAT ARE UNDER THE %d MOUNT \n" , limit ) ;
+
+                printf("\nPress any key to continue ...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 10 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The dollar value of all products in Arsenal\n\n") ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                    amount = amount + temp->mounts_product *temp->price_product ;
+
+                    temp = temp->next ;
+            }
+
+            printf("\nThe Total Dollar Value of ALL PRODUCTS in the  Arsenal is %d\n" , amount) ;
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 11 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The dollar value of a specific Brand in Arsenal\n\n") ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                if ( strcmp(Brand_productreportsearch , temp->Brand) == 0 )
+                {
+                    amount = amount + temp->mounts_product *temp->price_product ;
+                }
+
+                temp = temp->next ;
+            }
+
+            printf("\nThe Total Dollar Value of OF THIS BRAND in the  Arsenal is %d\n" , amount) ;
+
+            if ( temp == NULL )
+            {
+                printf("\n\nTHERE IS NO PRODUCT IN THE DATA BASE WITH YOUR BRAND ENTER\n") ;
+
+                printf("\nPress any key to continue ...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 12 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The dollar value of a specific Model of a Brand in Arsenal\n\n") ;
+
+            printf("Enter the specific Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Model in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            amount = 0 ;
+
+            while ( temp != NULL)
+            {
+                if ( (strcmp(temp->Brand , Brand_productreportsearch)== 0 )&& (strcmp(temp->Model_product , Model_productreportsearch) == 0 )  )
+                {
+                    amount = amount + temp->mounts_product *temp->price_product ;
+                }
+
+                temp = temp->next ;
+            }
+
+            if ( temp == NULL )
+            {
+                printf("\n\nTHERE IS NO PRODUCT IN THE DATA BASE WITH YOUR BRAND ENTER\n") ;
+
+                printf("\nPress any key to continue ...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+
+            printf("\nThe Total Dollar Value of OF THIS BRAND in the  Arsenal is %d\n" , amount) ;
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 13 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The certain amount ( you need to enter ) of last transaction of this type of goods\n\n") ;
+
+            i = 0 ;
+
+            printf("\nEnter the specific Product's name in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Model  in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            printf("\nEnter the limits of last transaction of this type of product\n\n") ;
+
+            printf(">>>") ;
+
+            scanf("%d" , &i ) ;
+
+            while ( temp2 != NULL)
+            {
+                if ( (strcmp(temp2->Report_productnameuse , name_productreportsearch) == 0) && (strcmp(temp2->Report_productbranduse , Brand_productreportsearch)== 0 )&& (strcmp(temp2->Report_productmodeluse , Model_productreportsearch) == 0 ))
+                {
+                    while ( temp1 != NULL )
+                    {
+                        if ( strcmp(temp2->Report_Username , temp1->controlname ) == 0 )
+                        {
+                            if ( temp2->Report_mountusing < 0 )
+                            {
+
+                                printf("User name : %s\n\nName : %s \nLast name : %s \nBrand Type : %s \t Products Type : %s \t Model Type : %s\nMounts of Product outing : %d\n Date Of Transaction( Outing ): %s \n Date Of Registered : %s \n"
+                                       , temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse
+                                       , temp2->Report_mountusing , temp2->Report_Dateentering , temp->date_registerproduct) ;
+
+                                printf("-------------------------\n") ;
+
+                                counter++ ;
+
+                            }
+                            else if (temp2->Report_mountusing > 0  )
+                            {
+                                printf("User name : %s\n\nName : %s \nLast name : %s \nBrand Type : %s \t Products Type : %s \t Model Type : %s\nMounts of Product outing : %d\n Date Of Transaction (Entering): %s \n Date Of Registered : %s \n"
+                                        , temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse
+                                        , temp2->Report_mountusing , temp2->Report_Dateentering , temp->date_registerproduct) ;
+
+                                printf("-------------------------\n") ;
+
+                            }
+                        }
+                        temp1 =temp1->next1 ;
+                    }
+                }
+                if ( counter = i )
+                {
+                    break ;
+                }
+               temp2 = temp2->next2 ;
+            }
+
+            if ( temp == NULL )
+            {
+                printf("\n\nTHERE IS NO PRODUCT IN THE DATA BASE WITH YOUR BRAND ENTER\n") ;
+
+                printf("\nPress any key to continue ...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+
+            printf("\nPress any key to continue ...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 6 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The number of arrivals of a specific product in a specific historical period \n\n") ;
+
+            printf("\nEnter the specific Product's name in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Model  in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            printf("Enter your closer time frame like this : (DAY/MOUNTH/YEAR) \nFor example 4 Jan 2022 : (04/01/2022) \n>>>") ;
+
+            gets (limittime_1) ;
+
+            printf("Enter your farther time frame like this : (DAY/MOUNTH/YEAR) \nFor example 21 Feb 2021 : (21/02/2021)") ;
+
+            gets(limittime_2) ;
+
+            printf("IN THE HISTORICAL PERIOD FROM %s TO %s : \n\n\n") ;
+
+            daylimit_1 = ( limittime_1[0] - 48 ) * 10 + (limittime_1[1] - 48 ) ;
+
+            monthlimit_1 = (limittime_1[4] - 48) * 10 + (limittime_1[5] - 48 ) ;
+
+            yearlimit_1 = ( limittime_1[7] - 48 ) * 1000 + (limittime_1[8] - 48 ) * 100 + (limittime_1[9] - 48 ) * 10 + (limittime_1[10] - 48 ) ;
+
+            daylimit_2 = ( limittime_2[0] - 48 ) * 10 + (limittime_2[1] - 48 ) ;
+
+            monthlimit_2 = (limittime_2[4] - 48) * 10 + (limittime_2[5] - 48 ) ;
+
+            yearlimit_2 = ( limittime_2[7] - 48 ) * 1000 + (limittime_2[8] - 48 ) * 100 + (limittime_2[9] - 48 ) * 10 + (limittime_2[10] - 48 ) ;
+
+            while (temp2 != NULL )
+            {
+
+                if ( (strcmp(temp2->Report_productnameuse , name_productreportsearch) == 0) && (strcmp(temp2->Report_productbranduse , Brand_productreportsearch)== 0 )&& (strcmp(temp2->Report_productmodeluse , Model_productreportsearch) == 0 ))
+                {
+
+                    daybase = (temp2->Report_Dateentering[6] - 48) * 10 + ( temp2->Report_Dateentering[7] - 48) * 10 ;
+
+                    monthbase = (temp2->Report_Dateentering[4] - 48) * 10 + (temp2->Report_Dateentering[5] - 48 ) ;
+
+                    yearbase = (temp2->Report_Dateentering[0] - 48 ) * 1000 + ( temp2->Report_Dateentering[1] - 48 ) * 100 + ( temp2->Report_Dateentering[2] - 48 ) * 10 + ( temp2->Report_Dateentering[3] - 48 ) ;
+
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (yearbase > yearlimit_2 )&& (yearbase < yearlimit_1 )  )
+                        {
+                            while ( temp1 != NULL )
+                            {
+                                if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                {
+                                    printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount entering: %d \n\n ----------------------------" ,
+                                           temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,  temp2->Report_Dateentering
+                                           , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                    amount = amount + temp2->Report_mountusing ;
+                                }
+                                temp1 = temp1->next1 ;
+                            }
+                        }
+                        else if ( yearbase == yearlimit_1 )
+                            {
+                                if ( monthbase < monthlimit_1 )
+                                {
+                                    while ( temp1 != NULL )
+                                    {
+                                        if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                        {
+                                            printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount entering: %d \n\n ----------------------------" ,
+                                                   temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,temp2->Report_Dateentering
+                                                   , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                            amount = amount + temp2->Report_mountusing ;
+                                        }
+                                        temp1 = temp1->next1 ;
+                                    }
+                                }
+                                else if ( monthbase == monthlimit_1 )
+                                {
+                                    if ( daybase < daylimit_1 )
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount entering: %d \n\n ----------------------------" ,
+                                                       temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering
+                                                       , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+                            }
+                        else if ( yearbase == limittime_2 )
+                            {
+                                if ( monthbase > monthlimit_2)
+                                {
+                                    while ( temp1 != NULL )
+                                    {
+                                        if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                        {
+                                            printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount entering: %d \n\n ----------------------------" ,
+                                                   temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering
+                                                   , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                            amount = amount + temp2->Report_mountusing ;
+                                        }
+                                        temp1 = temp1->next1 ;
+                                    }
+                                }
+                                else if ( monthbase == monthlimit_2)
+                                {
+                                    if ( daybase > daylimit_2)
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount entering: %d \n\n ----------------------------" ,
+                                                       temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering
+                                                       , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+
+                    }
+
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("\nThe amount of imported product over a historical period from %s to %s by NAME : %s , BRAND : %s , MODEL : %s is %d " , limittime_1
+
+                   , limittime_2 , name_productreportsearch , Brand_productreportsearch , Model_productreportsearch , amount ) ;
+
+            if ( temp2 == NULL )
+            {
+                printf("\nTHERE IS NO TRANSACTION OF ARRIVEL OF THIS PRODUCT IN DATA BASE\n") ;
+
+                printf("Press Any key to continue...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        }
+        else if ( enter_reportadminchoice == 7 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The number of arrivals of all products in a specific time\n\n") ;
+
+            printf("Enter your closer time frame like this : (DAY/MOUNTH/YEAR) \nFor example 4 Jan 2022 : (04/01/2022) \n>>>") ;
+
+            gets (limittime_1) ;
+
+            printf("Enter your farther time frame like this : (DAY/MOUNTH/YEAR) \nFor example 21 Feb 2021 : (21/02/2021)") ;
+
+            gets(limittime_2) ;
+
+            daylimit_1 = ( limittime_1[0] - 48 ) * 10 + (limittime_1[1] - 48 ) ;
+
+            monthlimit_1 = (limittime_1[4] - 48) * 10 + (limittime_1[5] - 48 ) ;
+
+            yearlimit_1 = ( limittime_1[7] - 48 ) * 1000 + (limittime_1[8] - 48 ) * 100 + (limittime_1[9] - 48 ) * 10 + (limittime_1[10] - 48 ) ;
+
+            daylimit_2 = ( limittime_2[0] - 48 ) * 10 + (limittime_2[1] - 48 ) ;
+
+            monthlimit_2 = (limittime_2[4] - 48) * 10 + (limittime_2[5] - 48 ) ;
+
+            yearlimit_2 = ( limittime_2[7] - 48 ) * 1000 + (limittime_2[8] - 48 ) * 100 + (limittime_2[9] - 48 ) * 10 + (limittime_2[10] - 48 ) ;
+
+            printf("IN THE HISTORICAL PERIOD FROM %s TO %s : \n\n\n") ;
+
+            while ( temp != NULL )
+            {
+                strcpy(name_productreportsearch , temp->name_product) ;
+
+                strcpy(Brand_productreportsearch , temp->Brand) ;
+
+                strcpy(Model_productreportsearch , temp->Model_product) ;
+
+                while ( temp2 != NULL )
+                {
+
+                    if ( (strcmp(temp2->Report_productnameuse , name_productreportsearch) == 0) && (strcmp(temp2->Report_productbranduse , Brand_productreportsearch)== 0 )&& (strcmp(temp2->Report_productmodeluse , Model_productreportsearch) == 0 ))
+                    {
+
+                        printf("\nThe Product %s , %s , %s\n") ;
+
+                        daybase = (temp2->Report_Dateentering[6] - 48) * 10 + ( temp2->Report_Dateentering[7] - 48) * 10 ;
+
+                        monthbase = (temp2->Report_Dateentering[4] - 48) * 10 + (temp2->Report_Dateentering[5] - 48 ) ;
+
+                        yearbase = (temp2->Report_Dateentering[0] - 48 ) * 1000 + ( temp2->Report_Dateentering[1] - 48 ) * 100 + ( temp2->Report_Dateentering[2] - 48 ) * 10 + ( temp2->Report_Dateentering[3] - 48 ) ;
+
+                        if ( temp2->Report_mountusing > 0 )
+                        {
+                            if ( (yearbase > yearlimit_2 )&& (yearbase < yearlimit_1 ) )
+                            {
+                                while ( temp1 != NULL )
+                                {
+                                    if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                    {
+                                        printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                               temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                        amount = amount + temp2->Report_mountusing ;
+
+                                        Total_Amount = Total_Amount + amount ;
+                                    }
+                                    temp1 = temp1->next1 ;
+                                }
+                            }
+                            else if ( yearbase == yearlimit_1 )
+                            {
+                                if ( monthbase < monthlimit_1 )
+                                {
+                                    while ( temp1 != NULL )
+                                    {
+                                        if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                        {
+                                            printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                   temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,  temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                            amount = amount + temp2->Report_mountusing ;
+
+                                            Total_Amount = Total_Amount + amount ;
+                                        }
+                                        temp1 = temp1->next1 ;
+                                    }
+                                }
+                                else if ( monthbase == monthlimit_1 )
+                                {
+                                    if ( daybase < daylimit_1 )
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                       temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,  temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+
+                                                Total_Amount = Total_Amount + amount ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+                            }
+                            else if ( yearbase == limittime_2 )
+                            {
+                                if ( monthbase > monthlimit_2)
+                                {
+                                    while ( temp1 != NULL )
+                                    {
+                                        if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                        {
+                                            printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                   temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,  temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                            amount = amount + temp2->Report_mountusing ;
+
+                                            Total_Amount = Total_Amount + amount ;
+                                        }
+                                        temp1 = temp1->next1 ;
+                                    }
+                                }
+                                else if ( monthbase == monthlimit_2)
+                                {
+                                    if ( daybase > daylimit_2)
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                       temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,  temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+
+                                                Total_Amount = Total_Amount + amount ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+                    temp2 = temp2->next2 ;
+
+                printf("The amount of imported %s %s %s over a historical period from %s to %s is %d\n" , temp->name_product , temp->Brand , temp->Model_product ,
+
+                        limittime_2 , limittime_1 , amount)  ;
+
+                 printf("********************************\n\n") ;
+                }
+
+                amount = 0 ;
+
+                temp = temp->next ;
+            }
+
+        printf("Total amount of imported is %d" , Total_Amount) ;
+
+        printf("\nPress Any key to continue...") ;
+
+        getchar() ;
+
+        Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 8 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The number of exits of a specific product in a specific historical period \n\n") ;
+
+            printf("\nEnter the specific Product's name in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Brand in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("\nEnter the specific Product's Model  in your mind\n") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            printf("Enter your closer time frame like this : (DAY/MOUNTH/YEAR) \nFor example 4 Jan 2022 : (04/01/2022) \n>>>") ;
+
+            gets (limittime_1) ;
+
+            printf("Enter your farther time frame like this : (DAY/MOUNTH/YEAR) \nFor example 21 Feb 2021 : (21/02/2021)") ;
+
+            gets(limittime_2) ;
+
+            printf("IN THE HISTORICAL PERIOD FROM %s TO %s : \n\n\n") ;
+
+            daylimit_1 = ( limittime_1[0] - 48 ) * 10 + (limittime_1[1] - 48 ) ;
+
+            monthlimit_1 = (limittime_1[4] - 48) * 10 + (limittime_1[5] - 48 ) ;
+
+            yearlimit_1 = ( limittime_1[7] - 48 ) * 1000 + (limittime_1[8] - 48 ) * 100 + (limittime_1[9] - 48 ) * 10 + (limittime_1[10] - 48 ) ;
+
+            daylimit_2 = ( limittime_2[0] - 48 ) * 10 + (limittime_2[1] - 48 ) ;
+
+            monthlimit_2 = (limittime_2[4] - 48) * 10 + (limittime_2[5] - 48 ) ;
+
+            yearlimit_2 = ( limittime_2[7] - 48 ) * 1000 + (limittime_2[8] - 48 ) * 100 + (limittime_2[9] - 48 ) * 10 + (limittime_2[10] - 48 ) ;
+
+            while (temp2 != NULL )
+            {
+                if ( (strcmp(temp2->Report_productnameuse , name_productreportsearch) == 0) && (strcmp(temp2->Report_productbranduse , Brand_productreportsearch)== 0 )&& (strcmp(temp2->Report_productmodeluse , Model_productreportsearch) == 0 ))
+                {
+
+                    daybase = (temp2->Report_Dateentering[6] - 48) * 10 + ( temp2->Report_Dateentering[7] - 48) * 10 ;
+
+                    monthbase = (temp2->Report_Dateentering[4] - 48) * 10 + (temp2->Report_Dateentering[5] - 48 ) ;
+
+                    yearbase = (temp2->Report_Dateentering[0] - 48 ) * 1000 + ( temp2->Report_Dateentering[1] - 48 ) * 100 + ( temp2->Report_Dateentering[2] - 48 ) * 10 + ( temp2->Report_Dateentering[3] - 48 ) ;
+
+                    if ( temp2->Report_mountusing < 0 )
+                    {
+                        if ( (yearbase > yearlimit_2 )&& (yearbase < yearlimit_1 ) )
+                        {
+                            while ( temp1 != NULL )
+                            {
+                                if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                {
+                                    printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount exiting : %d \n\n ----------------------------" ,
+
+                                           temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering
+
+                                           , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                    amount = amount + temp2->Report_mountusing ;
+                                }
+                                temp1 = temp1->next1 ;
+                            }
+                        }
+                         else if ( yearbase == yearlimit_1 )
+                            {
+                                if ( monthbase < monthlimit_1 )
+                                {
+                                    while ( temp1 != NULL )
+                                    {
+                                        if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                        {
+                                            printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount exiting : %d \n\n ----------------------------" ,
+
+                                                   temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering
+
+                                                   , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                            amount = amount + temp2->Report_mountusing ;
+                                        }
+                                        temp1 = temp1->next1 ;
+                                    }
+                                }
+                                else if ( monthbase == monthlimit_1 )
+                                {
+                                    if ( daybase < daylimit_1 )
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount exiting : %d \n\n ----------------------------" ,
+
+                                                       temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,  temp2->Report_Dateentering
+
+                                                       , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+                            }
+                            else if ( yearbase == limittime_2 )
+                            {
+                                if ( monthbase > monthlimit_2)
+                                {
+                                    while ( temp1 != NULL )
+                                    {
+                                        if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                        {
+                                            printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount exiting : %d \n\n ----------------------------" ,
+
+                                                   temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id ,  temp2->Report_Dateentering
+
+                                                   , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                            amount = amount + temp2->Report_mountusing ;
+                                        }
+                                        temp1 = temp1->next1 ;
+                                    }
+                                }
+                                else if ( monthbase == monthlimit_2)
+                                {
+                                    if ( daybase > daylimit_2)
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("THE USRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s \nThe Product %s , %s , %s \nAmount exiting : %d \n\n ----------------------------" ,
+
+                                                       temp2->Report_Username , temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering
+
+                                                       , temp2->Report_productnameuse , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+
+                            }
+                    }
+
+                }
+                temp2 = temp2->next2 ;
+            }
+            printf("\nThe amount of imported product over a historical period from %s to %s by NAME : %s , BRAND : %s , MODEL : %s is %d " , limittime_1
+
+                   , limittime_2 , name_productreportsearch , Brand_productreportsearch , Model_productreportsearch , amount ) ;
+
+            if ( temp2 == NULL )
+            {
+                printf("\nTHERE IS NO TRANSACTION OF ARRIVEL OF THIS PRODUCT IN DATA BASE\n") ;
+
+                printf("Press Any key to continue...") ;
+
+                getchar() ;
+
+                Adminreportsection() ;
+
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 9 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The number of exits of all products in a specific time\n\n") ;
+
+            printf("Enter your closer time frame like this : (DAY/MOUNTH/YEAR) \nFor example 4 Jan 2022 : (04/01/2022) \n>>>") ;
+
+            gets (limittime_1) ;
+
+            printf("Enter your farther time frame like this : (DAY/MOUNTH/YEAR) \nFor example 21 Feb 2021 : (21/02/2021)") ;
+
+            gets(limittime_2) ;
+
+            daylimit_1 = ( limittime_1[0] - 48 ) * 10 + (limittime_1[1] - 48 ) ;
+
+            monthlimit_1 = (limittime_1[4] - 48) * 10 + (limittime_1[5] - 48 ) ;
+
+            yearlimit_1 = ( limittime_1[7] - 48 ) * 1000 + (limittime_1[8] - 48 ) * 100 + (limittime_1[9] - 48 ) * 10 + (limittime_1[10] - 48 ) ;
+
+            daylimit_2 = ( limittime_2[0] - 48 ) * 10 + (limittime_2[1] - 48 ) ;
+
+            monthlimit_2 = (limittime_2[4] - 48) * 10 + (limittime_2[5] - 48 ) ;
+
+            yearlimit_2 = ( limittime_2[7] - 48 ) * 1000 + (limittime_2[8] - 48 ) * 100 + (limittime_2[9] - 48 ) * 10 + (limittime_2[10] - 48 ) ;
+
+            printf("IN THE HISTORICAL PERIOD FROM %s TO %s : \n\n\n") ;
+
+            while ( temp != NULL )
+            {
+                strcpy(name_productreportsearch , temp->name_product) ;
+
+                strcpy(Brand_productreportsearch , temp->Brand) ;
+
+                strcpy(Model_productreportsearch , temp->Model_product) ;
+
+                while ( temp2 != NULL )
+                {
+
+                    if ( (strcmp(temp2->Report_productnameuse , name_productreportsearch) == 0) && (strcmp(temp2->Report_productbranduse , Brand_productreportsearch)== 0 )&& (strcmp(temp2->Report_productmodeluse , Model_productreportsearch) == 0 ))
+                    {
+                        printf("\nThe Product %s , %s , %s \n") ;
+
+                        daybase = (temp2->Report_Dateentering[6] - 48) * 10 + ( temp2->Report_Dateentering[7] - 48) * 10 ;
+
+                        monthbase = (temp2->Report_Dateentering[4] - 48) * 10 + (temp2->Report_Dateentering[5] - 48 ) ;
+
+                        yearbase = (temp2->Report_Dateentering[0] - 48 ) * 1000 + ( temp2->Report_Dateentering[1] - 48 ) * 100 + ( temp2->Report_Dateentering[2] - 48 ) * 10 + ( temp2->Report_Dateentering[3] - 48 ) ;
+
+                        if ( temp2->Report_mountusing > 0 )
+                        {
+                            if ( (yearbase > yearlimit_2 )&& (yearbase < yearlimit_1 ))
+                            {
+                                while ( temp1 != NULL )
+                                {
+                                    if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                    {
+                                        printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                               temp2->Report_Username ,temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id  , temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                        amount = amount + temp2->Report_mountusing ;
+
+                                        Total_Amount = Total_Amount + amount ;
+                                    }
+                                    temp1 = temp1->next1 ;
+                                }
+                            }
+                            else if ( yearbase == yearlimit_1 )
+                            {
+                                if ( monthbase < monthlimit_1 )
+                                {
+                                    while ( temp1 != NULL )
+                                    {
+                                        if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                        {
+                                            printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                   temp2->Report_Username ,temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                            amount = amount + temp2->Report_mountusing ;
+
+                                            Total_Amount = Total_Amount + amount ;
+                                        }
+                                        temp1 = temp1->next1 ;
+                                    }
+                                }
+                                else if ( monthbase == monthlimit_1 )
+                                {
+                                    if ( daybase < daylimit_1 )
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                       temp2->Report_Username ,temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+
+                                                Total_Amount = Total_Amount + amount ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+                            }
+                            else if ( yearbase == limittime_2 )
+                            {
+                                if ( monthbase > monthlimit_2)
+                                {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                       temp2->Report_Username ,temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+
+                                                Total_Amount = Total_Amount + amount ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                }
+                                else if ( monthbase == monthlimit_2)
+                                {
+                                    if ( daybase > daylimit_2)
+                                    {
+                                        while ( temp1 != NULL )
+                                        {
+                                            if ( strcmp(temp2->Report_Username , temp1->controlname) == 0 )
+                                            {
+                                                printf("TheUSRENAME : %s \nName: %s \nFamilyName: %s \nID: %s\nDATE : %s\nAmount entering: %d \n\n ----------------------------" ,
+
+                                                       temp2->Report_Username ,temp1->Name_newmember , temp1->LastName_newmemeber , temp1->id , temp2->Report_Dateentering ,  temp2->Report_mountusing) ;
+
+                                                amount = amount + temp2->Report_mountusing ;
+
+                                                Total_Amount = Total_Amount + amount ;
+                                            }
+                                            temp1 = temp1->next1 ;
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                    temp2 = temp2->next2 ;
+
+                    printf("\nThe amount of imported %s %s %s over a historical period from %s to %s is %d\n") ;
+
+                    printf("********************************\n\n") ;
+                }
+            amount = 0 ;
+
+            temp = temp->next ;
+            }
+
+            printf("\nTotal amount of imported is %d" , Total_Amount) ;
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 14 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of transactions registered by a specific user \n\n") ;
+
+            printf("\nEnter the specific username or id\n") ;
+
+            printf(">>>") ;
+
+            gets(username_idsearch) ;
+
+            while (temp1 != NULL)
+            {
+                if ( (strcmp(temp1->controlname , username_idsearch)== 0) || (strcmp(temp1->id , username_idsearch) == 0 ) )
+                {
+                    printf("Name : %s \nLast Name : %s \nID : %s \nPhone Number : %s \nEmail : %s" , temp1->Name_newmember
+
+                           , temp1->LastName_newmemeber , temp1->id , temp1->phone_Number , temp1->email_Newmemeber) ;
+
+                    while ( temp2 != NULL )
+                    {
+                        if ( strcmp(temp1->controlname , temp2->Report_Username)== 0 )
+                        {
+                            printf("Product : %s , %s , %s \nAmount using : %s \nDate registration: %s\n ---------------------\n") ;
+
+                        }
+                        temp2 = temp2->next2 ;
+                    }
+                }
+                temp1 = temp1->next1 ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 15)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of transactions registered by a specific user in a specific historical period (you need to enter )") ;
+
+            printf("\nEnter the specific User name or id\n") ;
+
+            printf(">>>") ;
+
+            gets(username_idsearch) ;
+
+            printf("Enter your closer time frame like this : (DAY/MOUNTH/YEAR) \nFor example 4 Jan 2022 : (04/01/2022) \n>>>") ;
+
+            gets (limittime_1) ;
+
+            printf("Enter your farther time frame like this : (DAY/MOUNTH/YEAR) \nFor example 21 Feb 2021 : (21/02/2021)") ;
+
+            gets(limittime_2) ;
+
+            daylimit_1 = ( limittime_1[0] - 48 ) * 10 + (limittime_1[1] - 48 ) ;
+
+            monthlimit_1 = (limittime_1[4] - 48) * 10 + (limittime_1[5] - 48 ) ;
+
+            yearlimit_1 = ( limittime_1[7] - 48 ) * 1000 + (limittime_1[8] - 48 ) * 100 + (limittime_1[9] - 48 ) * 10 + (limittime_1[10] - 48 ) ;
+
+            daylimit_2 = ( limittime_2[0] - 48 ) * 10 + (limittime_2[1] - 48 ) ;
+
+            monthlimit_2 = (limittime_2[4] - 48) * 10 + (limittime_2[5] - 48 ) ;
+
+            yearlimit_2 = ( limittime_2[7] - 48 ) * 1000 + (limittime_2[8] - 48 ) * 100 + (limittime_2[9] - 48 ) * 10 + (limittime_2[10] - 48 ) ;
+
+            while ( temp1 != NULL )
+            {
+                if ( (strcmp(temp1->controlname , username_idsearch)== 0) || (strcmp(temp1->id , username_idsearch) == 0 ) )
+                {
+                    printf("Name : %s \nLast Name : %s \nID : %s \nPhone Number : %s \nEmail : %s\n" , temp1->Name_newmember
+
+                           , temp1->LastName_newmemeber , temp1->id , temp1->phone_Number , temp1->email_Newmemeber) ;
+
+                    while ( temp2 != NULL)
+                    {
+                        if ( strcmp (temp1->controlname , temp2->Report_Username) == 0 )
+                        {
+                            daybase = (temp2->Report_Dateentering[6] - 48) * 10 + ( temp2->Report_Dateentering[7] - 48) * 10 ;
+
+                            monthbase = (temp2->Report_Dateentering[4] - 48) * 10 + (temp2->Report_Dateentering[5] - 48 ) ;
+
+                            yearbase = (temp2->Report_Dateentering[0] - 48 ) * 1000 + ( temp2->Report_Dateentering[1] - 48 ) * 100 + ( temp2->Report_Dateentering[2] - 48 ) * 10 + ( temp2->Report_Dateentering[3] - 48 ) ;
+
+                            if ( (yearbase > yearlimit_2 )&& (yearbase < yearlimit_1 ) )
+                            {
+                                printf("Product used : %s %s %s \nAmounts used : %s\nDate registration : %s", temp2->Report_productnameuse
+
+                                       , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing , temp) ;
+                            }
+                            else if ( yearbase == yearlimit_1 )
+                            {
+                                if ( monthbase < monthlimit_1 )
+                                {
+                                    printf("Product used : %s %s %s \nAmounts used : %s\nDate registration : %s") ;
+
+                                }
+                                else if ( monthbase == monthlimit_1 )
+                                {
+                                    if ( daybase < daylimit_1 )
+                                    {
+                                        printf("Product used : %s %s %s \nAmounts used : %s\nDate registration : %s") ;
+
+                                    }
+                                }
+                            }
+                            else if ( yearbase == limittime_2 )
+                            {
+                                if ( monthbase > monthlimit_2)
+                                {
+                                    printf("Product used : %s %s %s \nAmounts used : %s\nDate registration : %s") ;
+
+                                }
+                                else if ( monthbase == monthlimit_2)
+                                {
+                                    if ( daybase > daylimit_2)
+                                    {
+                                    printf("Product used : %s %s %s \nAmounts used : %s\nDate registration : %s") ;
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        temp2 =temp2->next2 ;
+                    }
+                }
+                temp1 = temp1->next1 ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 16 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of last certain amount (you need to enter) of transactions a specific user (you need to search)\n\n") ;
+
+            printf("\nEnter the specific User name or id\n") ;
+
+            printf(">>>") ;
+
+            gets(username_idsearch) ;
+
+            printf("\n Enter the certain amount\n") ;
+
+            counter = 0 ;
+
+            scanf("%d" , &i) ;
+
+            while ( temp1 != NULL )
+            {
+                if ( (strcmp(temp1->controlname , username_idsearch)== 0) || (strcmp(temp1->id , username_idsearch) == 0 ) )
+                {
+                    printf("Name : %s \nLast Name : %s \nID : %s \nPhone Number : %s \nEmail : %s\n" , temp1->Name_newmember
+
+                           , temp1->LastName_newmemeber , temp1->id , temp1->phone_Number , temp1->email_Newmemeber) ;
+
+                    while ( temp2 != NULL )
+                    {
+                        if ( strcmp(temp1->controlname , temp2->Report_Username ) == 0 )
+                        {
+                            printf("Product used : %s %s %s \nAmounts used : %s\nDate registration : %s", temp2->Report_productnameuse
+
+                            , temp2->Report_productbranduse , temp2->Report_productmodeluse , temp2->Report_mountusing , temp) ;
+
+                            counter ++ ;
+
+                        }
+                        temp2 = temp2->next2 ;
+                    }
+                }
+                temp1= temp1->next1 ;
+            }
+
+        printf("\nPress Any key to continue...") ;
+
+        getchar() ;
+
+        Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice ==  19 )
+        {
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Back to admin menu...") ;
+
+        Sleep(3000) ;
+
+        AdminMenu() ;
+
+        }
+        else if ( enter_reportadminchoice == 17 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("17.The list of All Members\n\n") ;
+
+            while ( temp!= NULL)
+            {
+                printf("Name : %s \nLastName : %s \nUser-name : %s \nID : %s \nEmail : %s \nPhone number : %s \n\n----------------------\n\n" , temp1->Name_newmember , temp1->LastName_newmemeber
+
+                       , temp1->controlname , temp1->id , temp1->email_Newmemeber , temp1->phone_Number) ;
+
+                temp1 = temp1->next1 ;
+
+            }
+
+        printf("\nPress Any key to continue...") ;
+
+        getchar() ;
+
+        Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 18 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("The list of All Products\n\n") ;
+
+            while ( temp != NULL)
+            {
+                printf("Name product : %s \nBrand product : %s \nModel product : %s \nDescription : %s \nAmounts : %d \nPrice : %d \nDate registering : %s\n\n----------------------\n\n" ,
+
+                       temp->name_product , temp->Brand , temp->Model_product , temp->preamble_product , temp->mounts_product , temp->price_product , temp->date_registerproduct ) ;
+
+                temp = temp->next ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 19 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart in a specific month of arrivals of a specific Name product (you need to enter)\n\n") ;
+
+            printf("Enter the month :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the name of products :\n>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(name_productreportsearch , temp2->Report_productnameuse) == 0 )
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[4] - 48 )* 10 + (temp2->Report_Dateentering[5] - 48 ) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[6] -48)*10) + (temp2->Report_Dateentering[7] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a month of arrivals of a %s products name\n Unit : 10 products\n", name_productreportsearch) ;
+
+            for ( b = 0 ; b <= 31 ; b++ )
+            {
+                printf("2023.%d.%d   |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 10 ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        if ( enter_reportadminchoice == 20 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a year of arrivals of a specific Name product (you need to enter)") ;
+
+            printf("Enter the year :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the name of products :\n>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(name_productreportsearch , temp2->Report_productnameuse) == 0 )
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[0] - 48 )* 1000 + (temp2->Report_Dateentering[1] - 48 ) *100 + (temp2->Report_Dateentering[2] -48) * 10 + (temp2->Report_Dateentering - 48) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[4] -48)*10) + (temp2->Report_Dateentering[5] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a years of arrivals of a %s products name\n Unit : 100 products\n", name_productreportsearch) ;
+
+            for ( b = 0 ; b <= 11 ; b++ )
+            {
+                printf("%d.%d |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 100 ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 21 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a month of arrivals of a specific Brand of product (you need to enter)\n\n") ;
+
+            printf("Enter the month :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(Brand_productreportsearch , temp2->Report_productbranduse) == 0 )
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[4] - 48 )* 10 + (temp2->Report_Dateentering[5] - 48 ) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[6] -48)*10) + (temp2->Report_Dateentering[7] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a month of arrivals of a %s products brand\n Unit : 10 products\n", Brand_productreportsearch) ;
+
+            for ( b = 0 ; b <= 31 ; b++ )
+            {
+                printf("2023.%d.%d   |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 10 ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 22)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a year of arrivals of a specific Brand of product (you need to enter)\n\n") ;
+
+            printf("Enter the year :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(Brand_productreportsearch , temp2->Report_productbranduse ) == 0 )
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[0] - 48 )* 1000 + (temp2->Report_Dateentering[1] - 48 ) *100 + (temp2->Report_Dateentering[2] -48) * 10 + (temp2->Report_Dateentering - 48) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[4] -48)*10) + (temp2->Report_Dateentering[5] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a years of arrivals of a %s products brand\n Unit : 100 products\n", Brand_productreportsearch) ;
+
+            for ( b = 0 ; b <= 11 ; b++ )
+            {
+                printf("%d.%d |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 100 ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 23 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a month of arrivals of a specific Model of product (you need to enter)\n\n") ;
+
+            printf("Enter the month :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("Enter the model of products :\n>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( (strcmp(Brand_productreportsearch , temp2->Report_productnameuse) == 0) && (strcmp(Model_productreportsearch , temp2->Report_productmodeluse) == 0 ) )
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[4] - 48 )* 10 + (temp2->Report_Dateentering[5] - 48 ) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[6] -48)*10) + (temp2->Report_Dateentering[7] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a month of arrivals of a %s products model\n Unit : 10 products\n", Model_productreportsearch) ;
+
+            for ( b = 0 ; b <= 31 ; b++ )
+            {
+                printf("2023.%d.%d   |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 10 ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 24 )
+        {
+
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a year of arrivals of a specific Model product (you need to enter)\n\n") ;
+
+            printf("Enter the year :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("Enter the model of products :\n>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( (strcmp(Brand_productreportsearch , temp2->Report_productbranduse ) == 0) && (strcmp(Model_productreportsearch , temp2->Report_productmodeluse) == 0 ))
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[0] - 48 )* 1000 + (temp2->Report_Dateentering[1] - 48 ) *100 + (temp2->Report_Dateentering[2] -48) * 10 + (temp2->Report_Dateentering - 48) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[4] -48)*10) + (temp2->Report_Dateentering[5] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a years of arrivals of a %s products model\n Unit : 100 products\n", Model_productreportsearch) ;
+
+            for ( b = 0 ; b <= 11 ; b++ )
+            {
+                printf("%d.%d |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 100 ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+
+        }
+            else if ( enter_reportadminchoice == 25 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart in a specific month of exits of a specific Name product (you need to enter)\n\n") ;
+
+            printf("Enter the month :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the name of products :\n>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(name_productreportsearch , temp2->Report_productnameuse) == 0 )
+                {
+                    if ( temp2->Report_mountusing < 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[4] - 48 )* 10 + (temp2->Report_Dateentering[5] - 48 ) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[6] -48)*10) + (temp2->Report_Dateentering[7] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a month of exits of a %s products name\n Unit : 10 products\n", name_productreportsearch) ;
+
+            for ( b = 0 ; b <= 31 ; b++ )
+            {
+                printf("2023.%d.%d   |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 10 ;
+
+                counter_2 = counter_2 * ( -1) ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        if ( enter_reportadminchoice == 26 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a year of exits of a specific Name product (you need to enter)") ;
+
+            printf("Enter the year :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the name of products :\n>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(name_productreportsearch , temp2->Report_productnameuse) == 0 )
+                {
+                    if ( temp2->Report_mountusing < 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[0] - 48 )* 1000 + (temp2->Report_Dateentering[1] - 48 ) *100 + (temp2->Report_Dateentering[2] -48) * 10 + (temp2->Report_Dateentering - 48) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[4] -48)*10) + (temp2->Report_Dateentering[5] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a years of arrivals of a %s products name\n Unit : 100 products\n", name_productreportsearch) ;
+
+            for ( b = 0 ; b <= 11 ; b++ )
+            {
+                printf("%d.%d |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 100 ;
+
+                counter_2 = counter_2 * ( -1 ) ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 27 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a month of exits of a specific Brand of product (you need to enter)\n\n") ;
+
+            printf("Enter the month :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(Brand_productreportsearch , temp2->Report_productbranduse) == 0 )
+                {
+                    if ( temp2->Report_mountusing < 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[4] - 48 )* 10 + (temp2->Report_Dateentering[5] - 48 ) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[6] -48)*10) + (temp2->Report_Dateentering[7] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a month of arrivals of a %s products brand\n Unit : 10 products\n", Brand_productreportsearch) ;
+
+            for ( b = 0 ; b <= 31 ; b++ )
+            {
+                printf("2023.%d.%d   |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 10 ;
+
+                counter_2 = counter_2 * (-1) ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 28)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a year of arrivals of a specific Brand of product (you need to enter)\n\n") ;
+
+            printf("Enter the year :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( strcmp(Brand_productreportsearch , temp2->Report_productbranduse ) == 0 )
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[0] - 48 )* 1000 + (temp2->Report_Dateentering[1] - 48 ) *100 + (temp2->Report_Dateentering[2] -48) * 10 + (temp2->Report_Dateentering - 48) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[4] -48)*10) + (temp2->Report_Dateentering[5] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a years of arrivals of a %s products brand\n Unit : 100 products\n", Brand_productreportsearch) ;
+
+            for ( b = 0 ; b <= 11 ; b++ )
+            {
+                printf("%d.%d |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 100 ;
+
+                counter_2 = counter_2 * (-1) ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+        }
+        else if ( enter_reportadminchoice == 29 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a month of exits of a specific Model of product (you need to enter)\n\n") ;
+
+            printf("Enter the month :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("Enter the model of products :\n>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( (strcmp(Brand_productreportsearch , temp2->Report_productnameuse) == 0) && (strcmp(Model_productreportsearch , temp2->Report_productmodeluse) == 0 ) )
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[4] - 48 )* 10 + (temp2->Report_Dateentering[5] - 48 ) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[6] -48)*10) + (temp2->Report_Dateentering[7] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a month of arrivals of a %s products model\n Unit : 10 products\n", Model_productreportsearch) ;
+
+            for ( b = 0 ; b <= 31 ; b++ )
+            {
+                printf("2023.%d.%d   |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 10 ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+        }
+        else if ( enter_reportadminchoice == 30 )
+        {
+
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Column chart of a year of exits of a specific Model product (you need to enter)\n\n") ;
+
+            printf("Enter the year :\n>>") ;
+
+            scanf("%d" , &i) ;
+
+            printf("Enter the Brand of products :\n>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("Enter the model of products :\n>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            while ( temp2 != NULL )
+            {
+                if ( (strcmp(Brand_productreportsearch , temp2->Report_productbranduse ) == 0) && (strcmp(Model_productreportsearch , temp2->Report_productmodeluse) == 0 ))
+                {
+                    if ( temp2->Report_mountusing > 0 )
+                    {
+                        if ( (( temp2->Report_Dateentering[0] - 48 )* 1000 + (temp2->Report_Dateentering[1] - 48 ) *100 + (temp2->Report_Dateentering[2] -48) * 10 + (temp2->Report_Dateentering - 48) == i ))
+                        {
+                            for ( b = 0 ; b <= 30 ; b++ )
+                            {
+                                if (((temp2->Report_Dateentering[4] -48)*10) + (temp2->Report_Dateentering[5] - 48) == b )
+                                {
+                                    arr[b] = arr[b] + temp2->Report_mountusing ;
+                                }
+                            }
+                        }
+                    }
+                }
+                temp2 = temp2->next2 ;
+            }
+
+            printf("Column chart in a years of exits of a %s products model\n Unit : 100 products\n", Model_productreportsearch) ;
+
+            for ( b = 0 ; b <= 11 ; b++ )
+            {
+                printf("%d.%d |" ,i , b+1 ) ;
+
+                counter_2 = arr[b] / 100 ;
+
+                counter_2 = counter_2 * (-1) ;
+
+                for ( d = 0 ; d <= counter_2 ; d++ )
+                {
+                    printf("%c" , (char)254u) ;
+
+                    printf(" ") ;
+                }
+                printf("\n") ;
+            }
+            printf("\nPress Any key to continue...") ;
+
+            getchar() ;
+
+            Adminreportsection() ;
+
+
+        }
+        else if ( enter_reportadminchoice == 31)
+        {
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Back to first page...") ;
+
+        Sleep(3000) ;
+
+        AdminMenu() ;
+
+        }
+        else if ( enter_reportadminchoice > 31 || enter_reportadminchoice < 1 )
+        {
+            printf("Wrong enter choice") ;
+
+            Sleep(3000) ;
+
+            Adminreportsection() ;
+        }
+}
