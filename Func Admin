@@ -1,0 +1,55 @@
+void Admin(void)
+{
+    system("cls") ;
+
+    printf("Welcome to SAM , sir \n") ;
+
+    system("cls") ;
+
+    printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+    printf("*Welcome sir*\n\n") ;
+
+    printf("Enter the Username:") ;
+
+    char admin_username[6] = "admin" ;
+
+    char admin_UNcheck[32] ;
+
+    scanf("%s" , admin_UNcheck) ;
+
+    char admin_password[9] = "00000000" ;
+
+    char admin_PWcheck[32] ;
+
+    int admin_pwCh = 0 ;
+
+    printf("Enter the password :") ;
+
+    checkpassword(admin_PWcheck) ;
+
+    for ( ; ; )
+        {
+            if ( ( strcmp(admin_username , admin_UNcheck ) == 0 ) && ( strcmp(admin_password , admin_PWcheck) == 0 ) )
+            {
+                printf("\nYou entered , Sir\n") ;
+
+                Sleep(3000) ;
+
+                break ;
+            }
+
+            else if(( strcmp(admin_username , admin_UNcheck ) != 0 ) || ( strcmp(admin_password , admin_PWcheck) != 0 ))
+            {
+                    printf("\nUsername or Password does not match\n") ;
+
+                    Sleep(3000) ;
+
+                    Admin();
+
+            }
+        }
+
+    AdminMenu() ;
+
+}
