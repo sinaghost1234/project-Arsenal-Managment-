@@ -1,0 +1,277 @@
+void AdminMenu(void)
+{
+        system("cls") ;
+
+        printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+        printf("Welcome sir\n") ;
+
+        printf("Enter your order>>>\n\n") ;
+
+        printf("1.New product registration\n\n") ;
+
+        printf("2.Report sections\n\n") ;
+
+        printf("3.Deleting product\n\n") ;
+
+        printf("4.Deleting account\n\n") ;
+
+        printf("5.Logout\n\n") ;
+
+        printf("6.Close the program\n\n") ;
+
+        printf(">>>") ;
+
+        int Admin_Enterchoice ;
+
+        scanf("%d" , &Admin_Enterchoice) ;
+
+        if ( Admin_Enterchoice == 1)
+        {
+            productAdminCheck() ;
+
+            Products Product ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("New product registration\n\n\n");
+
+            printf("Product's Name : ") ;
+
+            char randomest_strforfixingBug1[1] ;
+
+            gets(randomest_strforfixingBug1) ;
+
+            gets(Product.name_product) ;
+
+            strlwr(Product.name_product) ;
+
+            printf("\n") ;
+
+            printf("Product's Brand : ") ;
+
+            gets(Product.Brand) ;
+
+            strlwr(Product.Brand) ;
+
+            printf("\n") ;
+
+            printf("Product's model : ") ;
+
+            gets(Product.Model_product) ;
+
+            strlwr(Product.Model_product) ;
+
+            printf("\n") ;
+
+            printf("Product's price ""$$$DOLLARS$$$"" : ") ;
+
+            scanf("%d" , &Product.price_product) ;
+
+            printf("\n") ;
+
+            printf("Enter the preamble of this product (*MAX 100 LETTERS*) :\n") ;
+
+            gets(Product.preamble_product) ;
+
+            printf("\n") ;
+
+            Product.mounts_product = 0 ;
+
+            time_t  rawtime1 ;
+
+            struct tm *info1 ;
+
+            time( &rawtime1 ) ;
+
+            info1 = localtime(&rawtime1) ;
+
+            strftime(Product.date_registerproduct , 30 , "%Y%m%d" , info1) ;
+
+            Product.next = NULL ;
+
+            pushproduct(Product) ;
+
+            printf(">>The product has been saved<<") ;
+
+            Sleep(3000) ;
+
+            system("cls") ;
+
+            AdminMenu() ;
+        }
+        else if ( Admin_Enterchoice == 2)
+        {
+            Adminreportsection() ;
+        }
+
+        else if ( Admin_Enterchoice == 5)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Log outing ... ") ;
+
+            Sleep(2000) ;
+
+            filewriteproduct() ;
+
+            filewritereports() ;
+
+            filewriteproduct() ;
+
+            system("cls") ;
+
+            main() ;
+
+        }
+        else if ( Admin_Enterchoice == 6)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Thanks for using our application") ;
+
+            filewriteproduct() ;
+
+            filewritereports() ;
+
+            filewriteproduct() ;
+
+            Sleep(2000) ;
+
+            system("cls") ;
+
+            exit(0) ;
+        }
+        else if (Admin_Enterchoice == 3)
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Deleting product from data base\n\n") ;
+
+            Products *temp = head ;
+
+            Products *temp_new = head ;
+
+            printf("Enter the Name of product") ;
+
+            printf(">>>") ;
+
+            gets(name_productreportsearch) ;
+
+            strlwr(name_productreportsearch) ;
+
+            printf("Enter the Brand of product")  ;
+
+            printf(">>>") ;
+
+            gets(Brand_productreportsearch) ;
+
+            strlwr(Brand_productreportsearch) ;
+
+            printf("Enter the Model of product") ;
+
+            printf(">>>") ;
+
+            gets(Model_productreportsearch) ;
+
+            strlwr(Model_productreportsearch) ;
+
+            while ( temp != NULL )
+            {
+                if ( (strcmp(name_productreportsearch , temp->name_product ) == 0 ) && (strcmp(Brand_productreportsearch , temp->Brand ) == 0  ) && (strcmp(Model_productreportsearch , temp->Model_product ) == 0 ))
+                {
+                    temp_new->next =temp->next ;
+
+                    free(temp) ;
+
+                    printf("\n\nOperation successfully...") ;
+
+                    printf("\n\nGood bye my friend") ;
+
+                    break ;
+                }
+                temp_new = temp ;
+
+                temp = temp->next ;
+            }
+
+            if ( temp == NULL)
+            {
+                printf("\nThere is no products in data base with this identities") ;
+
+                printf("press any key to continue") ;
+
+                getchar() ;
+
+                AdminMenu() ;
+            }
+
+            printf("\nPress any key to continue...") ;
+
+            getchar() ;
+
+            AdminMenu() ;
+
+        }
+        else if ( Admin_Enterchoice == 4 )
+        {
+            system("cls") ;
+
+            printf("SINA'S ARSENAL MANAGEMENT\n\n") ;
+
+            printf("Deleting members from data base\n\n") ;
+
+            printf("Enter the ID or User-name\n") ;
+
+            printf(">>>") ;
+
+            gets(username_idsearch) ;
+
+            Members *temp1 = head1 ;
+
+            Members *temp1_new = head1 ;
+
+            while ( temp1 != NULL)
+            {
+                if ( (strcmp(username_idsearch , temp1->controlname ) == 0 ) || (strcmp(username_idsearch , temp1->id) == 0 ) )
+                {
+                    temp1_new->next1 = temp1->next1 ;
+
+                    free(temp1) ;
+
+                    printf("\n\nOperation successfully...") ;
+
+                    break ;
+
+                }
+                temp1_new = temp1 ;
+
+                temp1 = temp1->next1 ;
+            }
+
+            if ( temp1 == NULL)
+            {
+                printf("\nThere is no members with this id or user-name in data base with this identities\n") ;
+
+                printf("press any key to continue") ;
+
+                getchar() ;
+
+                AdminMenu() ;
+            }
+
+            printf("\nPress any key to continue...") ;
+
+            getchar() ;
+
+            AdminMenu() ;
+        }
+
+
+}
