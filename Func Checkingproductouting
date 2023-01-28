@@ -1,0 +1,15 @@
+int checkingproductouting( long int a , long int b )
+{
+    if ( a < b )
+    {
+        printf("\nThe amounts of this type of goods removed is more than the limit of the number of this type of goods in the arsenal") ;
+
+        Sleep(8000) ;
+
+        return 0 ;
+    }
+    else
+    {
+        return 1 ;
+    }
+}
